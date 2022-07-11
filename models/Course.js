@@ -48,6 +48,38 @@ class Course {
                 })
         })
     }
+
+    updateCourse = async (id, subject, professor, schedule, quarter, year, approved, failed, dropped) => {
+        return new Promise((resolve, reject) => {
+            const connection = database.getConnnection();
+            connection.execute('CALL update_course(?,?,?,?,?,?,?,?,?)',
+                [id, subject, professor, schedule, quarter, year, approved, failed, dropped],
+                (err, results, fields) => {
+                    if (err) {
+                        reject()
+                    }
+                    else {
+                        resolve()
+                    }
+                })
+        })
+    }
+
+    deleteCourse = async (id) => {
+        return new Promise((resolve, reject) => {
+            const connection = database.getConnnection();
+            connection.execute('CALL delete_course(?)',
+            [id],
+                (err, results, fields) => {
+                    if (err) {
+                        reject()
+                    }
+                    else {
+                        resolve()
+                    }
+                })
+        })
+    }
 }
 
 module.exports = Course

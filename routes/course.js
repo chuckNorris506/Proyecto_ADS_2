@@ -4,7 +4,7 @@ const { createCourse, getCourse, updateCourse, deleteCourse } = require('../cont
 
 router.post('/', createCourse)
 router.get('/:id', getCourse)
-router.patch('/:id', updateCourse)
+router.put('/:id', updateCourse)
 router.delete('/:id', deleteCourse)
 
 

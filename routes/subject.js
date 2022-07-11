@@ -4,7 +4,7 @@ const { createSubject, getSubjects, updateSubject, deleteSubject } = require('..
 
 router.get('/', getSubjects)
 router.post('/', createSubject)
-router.patch('/:id', updateSubject)
+router.put('/:id', updateSubject)
 router.delete('/:id', deleteSubject)
 
 

@@ -1,7 +1,7 @@
 const Subject = require('../models/Subject.js')
 
 const createSubject = async (req, res) => {
-    const subject = new Subject()
+
     const { name, code } = req.body
 
     if (!(name || code)) {
@@ -11,6 +11,7 @@ const createSubject = async (req, res) => {
         return res.status(400).json({ msg: 'Por favor brindar valores válidos' })
     }
 
+    const subject = new Subject()
     subject.createSubject(name, code, req.user.id.id)
         .then(() => {
             res.status(201).json({ msg: 'Materia creada' })
@@ -33,8 +34,32 @@ const getSubjects = async (req, res) => {
         })
 }
 
-const updateSubject = (req, res) => { }
+const updateSubject = (req, res) => {
+    const { id } = req.params
+    const { name, code } = req.body
 
-const deleteSubject = (req, res) => { }
+    if (!(name || code)) {
+        return res.status(400).json({ msg: 'Por favor brindar todos los valores' })
+    }
+
+    const subject = new Subject()
+    subject.updateSubject(id, name, code).then(() => {
+        res.status(200).json({ msg: 'Materia actualizada' })
+    }).catch(() => {
+        return res.status(400).json({ msg: 'Error actualizando materia' })
+    })
+}
+
+const deleteSubject = (req, res) => {
+    const { id } = req.params
+
+    const subject = new Subject()
+    subject.deleteSubject(id).then(() => {
+        res.status(200).json({ msg: 'Materia eliminada' })
+    })
+    .catch(()=> {
+        return res.status(400).json({ msg: 'Error eliminando materia' })
+    })
+}
 
 module.exports = { createSubject, getSubjects, updateSubject, deleteSubject }

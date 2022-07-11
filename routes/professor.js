@@ -4,7 +4,7 @@ const { createProfessor, getProfessors, updateProfessor, deleteProfessor } = req
 
 router.get('/', getProfessors)
 router.post('/', createProfessor)
-router.patch('/:id', updateProfessor)
+router.put('/:id', updateProfessor)
 router.delete('/:id', deleteProfessor)
 
 

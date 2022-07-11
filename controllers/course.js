@@ -51,9 +51,38 @@ const getCourse = async (req, res) => {
         })
 }
 
-const updateCourse = (req, res) => { }
+const updateCourse = (req, res) => {
+    const { id } = req.params
+    const { subject, professor, schedule, quarter, year, approved, failed, dropped } = req.body
 
-const deleteCourse = (req, res) => { }
+    if (!(quarter || year || schedule || professor || subject || approved || failed || dropped)) {
+        return res.status(400).json({ msg: 'Por favor brindar todos los valores' })
+    }
+    if (quarter.length > 1 || year.length > 4 || schedule.length > 10 || professor.length > 1 || subject.length > 1 ||
+        approved.length > 2 || failed.length > 2 || dropped.length > 2) {
+        return res.status(400).json({ msg: 'Por favor brindar valores válidos' })
+    }
+
+    const course = new Course()
+    course.updateCourse(id, subject, professor, schedule, quarter, year, approved, failed, dropped)
+        .then(() => {
+            res.status(200).json({ msg: 'Curso actualizado' })
+        }).catch(() => {
+            return res.status(400).json({ msg: 'Error actualizando curso' })
+        })
+}
+
+const deleteCourse = (req, res) => { 
+    const { id } = req.params
+
+    const course = new Course()
+    course.deleteCourse(id).then(() => {
+        res.status(200).json({ msg: 'Curso eliminado' })
+    })
+    .catch(()=> {
+        return res.status(400).json({ msg: 'Error eliminando curso' })
+    })
+}
 
 
 

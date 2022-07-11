@@ -42,6 +42,38 @@ class Professor {
                 })
         })
     }
+
+    updateProfessor = async (id, fullname, identification) => {
+        return new Promise((resolve, reject) => {
+            const connection = database.getConnnection();
+            connection.execute('CALL update_professor(?,?,?)',
+                [id, fullname, identification],
+                (err, results, fields) => {
+                    if (err) {
+                        reject()
+                    }
+                    else {
+                        resolve()
+                    }
+                })
+        })
+    }
+
+    deleteProfessor = async (id) => {
+        return new Promise((resolve, reject) => {
+            const connection = database.getConnnection();
+            connection.execute('CALL delete_professor(?)',
+            [id],
+                (err, results, fields) => {
+                    if (err) {
+                        reject()
+                    }
+                    else {
+                        resolve()
+                    }
+                })
+        })
+    }
 }
 
 module.exports = Professor

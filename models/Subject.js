@@ -42,6 +42,39 @@ class Subject {
                 })
         })
     }
+
+    updateSubject = async (id, name, code) => {
+        return new Promise((resolve, reject) => {
+            const connection = database.getConnnection();
+            connection.execute('CALL update_subject(?,?,?)',
+            [id, name, code],
+                (err, results, fields) => {
+                    if (err) {
+                        reject()
+                    }
+                    else {
+                        resolve()
+                    }
+                })
+        })
+    }
+
+    deleteSubject = async (id) => {
+        return new Promise((resolve, reject) => {
+            const connection = database.getConnnection();
+            connection.execute('CALL delete_subject(?)',
+            [id],
+                (err, results, fields) => {
+                    if (err) {
+                        reject()
+                    }
+                    else {
+                        resolve()
+                    }
+                })
+        })
+    }
+
 }
 
 module.exports = Subject

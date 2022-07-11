@@ -2,6 +2,7 @@ const express = require('express')
 const app = express()
 require('dotenv').config()
 require('express-async-errors')
+
 const {authenticate} = require('./middleware/authenticate')
 const authentication = require('./routes/authentication')
 const professor = require('./routes/professor')
