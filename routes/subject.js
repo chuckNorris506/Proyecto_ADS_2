@@ -1,7 +1,11 @@
 const express = require('express')
 const router = express.Router()
-const {createSubject,getSubjects} = require('../controllers/subject')
+const { createSubject, getSubjects, updateSubject, deleteSubject } = require('../controllers/subject')
 
-router.post('/', createSubject).get('/', getSubjects)
+router.get('/', getSubjects)
+router.post('/', createSubject)
+router.patch('/:id', updateSubject)
+router.delete('/:id', deleteSubject)
+
 
 module.exports = router

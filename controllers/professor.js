@@ -32,4 +32,8 @@ const getProfessors = async (req, res) => {
 
 }
 
-module.exports = { createProfessor, getProfessors }
+const updateProfessor = (req, res) => { }
+
+const deleteProfessor = (req, res) => { }
+
+module.exports = { createProfessor, getProfessors, updateProfessor, deleteProfessor }

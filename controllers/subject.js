@@ -33,4 +33,8 @@ const getSubjects = async (req, res) => {
         })
 }
 
-module.exports = { createSubject, getSubjects }
+const updateSubject = (req, res) => { }
+
+const deleteSubject = (req, res) => { }
+
+module.exports = { createSubject, getSubjects, updateSubject, deleteSubject }

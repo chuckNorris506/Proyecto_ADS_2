@@ -1,7 +1,11 @@
 const express = require('express')
 const router = express.Router()
-const {createProfessor, getProfessors} = require('../controllers/professor')
+const { createProfessor, getProfessors, updateProfessor, deleteProfessor } = require('../controllers/professor')
 
-router.post('/', createProfessor).get('/', getProfessors)
+router.get('/', getProfessors)
+router.post('/', createProfessor)
+router.patch('/:id', updateProfessor)
+router.delete('/:id', deleteProfessor)
+
 
 module.exports = router

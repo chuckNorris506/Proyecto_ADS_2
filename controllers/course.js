@@ -25,7 +25,7 @@ const createCourse = async (req, res) => {
 const getCourse = async (req, res) => {
     const { id } = req.params
     const { option } = req.query
-    
+
     if (!(id || option)) {
         return res.status(400).json({ msg: 'Por favor brindar todo los valores' })
     }
@@ -50,4 +50,11 @@ const getCourse = async (req, res) => {
             res.status(404).json({ msg: 'No hay datos' })
         })
 }
-module.exports = { createCourse, getCourse }
+
+const updateCourse = (req, res) => { }
+
+const deleteCourse = (req, res) => { }
+
+
+
+module.exports = { createCourse, getCourse, updateCourse, deleteCourse }
