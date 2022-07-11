@@ -33,7 +33,7 @@ CREATE TABLE `alerts` (
   PRIMARY KEY (`a_id`),
   KEY `fk_alert_course_idx` (`c_id`),
   CONSTRAINT `fk_alert_course` FOREIGN KEY (`c_id`) REFERENCES `courses` (`c_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -42,7 +42,6 @@ CREATE TABLE `alerts` (
 
 LOCK TABLES `alerts` WRITE;
 /*!40000 ALTER TABLE `alerts` DISABLE KEYS */;
-INSERT INTO `alerts` VALUES (1,4,-46.43,140.00,300.00),(2,5,-4.00,50.00,-100.00);
 /*!40000 ALTER TABLE `alerts` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -64,7 +63,7 @@ CREATE TABLE `courses` (
   `c_students_failed` int NOT NULL,
   `c_students_dropped` int NOT NULL,
   `c_createdBy` int NOT NULL,
-  PRIMARY KEY (`c_id`),
+  PRIMARY KEY (`c_subject`,`c_professor`,`c_schedule`,`c_year`,`c_quarter`),
   UNIQUE KEY `subject_id_UNIQUE` (`c_id`),
   KEY `fk_subject_professor_idx` (`c_professor`),
   KEY `fk_subject_user_idx` (`c_createdBy`),
@@ -72,7 +71,7 @@ CREATE TABLE `courses` (
   CONSTRAINT `fk_course_professor` FOREIGN KEY (`c_professor`) REFERENCES `professors` (`p_id`),
   CONSTRAINT `fk_course_subject` FOREIGN KEY (`c_subject`) REFERENCES `subjects` (`s_id`),
   CONSTRAINT `fk_course_user` FOREIGN KEY (`c_createdBy`) REFERENCES `users` (`u_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -81,7 +80,6 @@ CREATE TABLE `courses` (
 
 LOCK TABLES `courses` WRITE;
 /*!40000 ALTER TABLE `courses` DISABLE KEYS */;
-INSERT INTO `courses` VALUES (1,2,1,'18:00:00',1,2022,28,2,0,1),(2,1,2,'19:30:00',2,2022,25,2,2,1),(3,2,1,'18:00:00',2,2022,28,3,1,1),(4,2,1,'18:00:00',2,2022,15,6,2,1),(5,1,2,'19:30:00',1,2022,24,3,0,1);
 /*!40000 ALTER TABLE `courses` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -102,7 +100,7 @@ CREATE TABLE `professors` (
   UNIQUE KEY `p_identification_UNIQUE` (`p_identification`),
   KEY `fk_professor_user_idx` (`p_createdBy`),
   CONSTRAINT `fk_professors_users` FOREIGN KEY (`p_createdBy`) REFERENCES `users` (`u_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -111,7 +109,6 @@ CREATE TABLE `professors` (
 
 LOCK TABLES `professors` WRITE;
 /*!40000 ALTER TABLE `professors` DISABLE KEYS */;
-INSERT INTO `professors` VALUES (1,'Gerardo','12345678',1),(2,' Jacqueline','87654321',1);
 /*!40000 ALTER TABLE `professors` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -131,7 +128,7 @@ CREATE TABLE `subjects` (
   UNIQUE KEY `s_code_UNIQUE` (`s_code`),
   KEY `fk_subject_user_idx` (`s_createdBy`),
   CONSTRAINT `fk_subject_user` FOREIGN KEY (`s_createdBy`) REFERENCES `users` (`u_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -140,7 +137,6 @@ CREATE TABLE `subjects` (
 
 LOCK TABLES `subjects` WRITE;
 /*!40000 ALTER TABLE `subjects` DISABLE KEYS */;
-INSERT INTO `subjects` VALUES (1,'Análisis 2','BIS01',1),(2,'Programación 4','BIS02',1);
 /*!40000 ALTER TABLE `subjects` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -402,4 +398,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-07-10 13:48:46
+-- Dump completed on 2022-07-11 10:56:58
