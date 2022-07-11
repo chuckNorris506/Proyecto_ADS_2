@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Universidad Latina de Costa Rica</title>
+    <script type="text/javascript" src="js/isAuthenticated.js"></script>
+    <script type="text/javascript" src="js/course.js"></script>
+    <script type="text/javascript" src="js/professor.js"></script>
+    <script type="text/javascript" src="js/subject.js"></script>
+</head>
+
+<body>
+    <header>
+        <img src="./img/logo_ulatina.png">
+        <h1>Crear nuevo registro</h1>
+        <link rel="stylesheet" href="./css/mainStyle.css">
+    </header>
+    <nav>
+        <a href="./professor.html">
+            <button>Crear nuevo profesor</button>
+        </a>
+        <a href="./subject.html">
+            <button>Crear nueva materia</button>
+        </a>
+    </nav>
+
+    <section>
+
+        <form onsubmit="createCourse(); return false">
+            <label for="quarter">Seleccione Cuatrimestre</label>
+            <input type="number" name="quarter" id="quarter" min="1" max="3" required>
+            <script>getQuarter()</script>
+            <label for="year">Seleccione año</label>
+            <input type="number" name="year" id="year" min="1900" max="2099" step="1" required>
+            <script>getYear()</script>
+            <label for="schedule">Seleccione Horario</label>
+            <input type="time" name="schedule" id="schedule" value="17:00" required>
+            <label for="professor">Seleccione Profesor</label>
+            <select id="professor" required>
+                <script>getProfessors()</script>
+            </select>
+            <label for="subject">Seleccione Materia</label>
+            <select id="subject" required>
+                <script>getSubjects()</script>
+            </select>
+            <label for="studentsApproved">Cantidad de estudiantes aprobados</label>
+            <input name="studentsApproved" id="approved" type="number" min="0" placeholder="Cantidad" required>
+            <label for="studentsFailed">Cantidad de estudiantes reprobados</label>
+            <input name="studentsFailed" id="failed" type="number" min="0" placeholder="Cantidad" required>
+            <label for="studentsDropped">Cantidad de estudiantes abandonaron</label>
+            <input name="studentsDropped" id="dropped" type="number" min="0" placeholder="Cantidad" required>
+            <input type="submit" value="Crear registro">
+        </form>
+    </section>
+</body>
+
+</html>

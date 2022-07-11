@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script type="text/javascript" src="js/isAuthenticated.js"></script>
+    <script type="text/javascript" src="js/professor.js"></script>
+</head>
+<body>
+<header>
+        <img src="./img/logo_ulatina.png">
+        <h1>Crear nuevo profesor</h1>
+        <link rel="stylesheet" href="./css/mainStyle.css">
+    </header>
+<section>
+        <form onsubmit="createProfessor(); return false">
+            <label for="fullname">Nombre de Profesor</label>
+            <input id="fullname" type="text" placeholder="Nombre completo" maxlength="45" required>
+            <label for="identification">Ingrese carné profesor</label>
+            <input id="identification" type="text"  placeholder="Carné" maxlength="45" required>
+            <input type="submit" value="Crear profesor">
+        </form>
+    </section>
+</body>
+</html>

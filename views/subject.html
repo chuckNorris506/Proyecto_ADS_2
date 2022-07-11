@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Universidad Latina de Costa Rica</title>
+    <script type="text/javascript" src="js/isAuthenticated.js"></script>
+    <script type="text/javascript" src="js/subject.js"></script>
+</head>
+<body>
+<header>
+        <img src="./img/logo_ulatina.png">
+        <h1>Crear nueva materia</h1>
+        <link rel="stylesheet" href="./css/mainStyle.css">
+    </header>
+    <section>
+        <form onsubmit="createSubject(); return false;">
+            <label for="name">Nombre de Materia</label>
+            <input id="name" type="text" placeholder="Nombre materia" maxlength="45" required>
+            <label for="code">Código materia</label>
+            <input id="code" type="text"  placeholder="Código materia" maxlength="45" required>
+            <input type="submit" value="Crear Materia">
+        </form>
+    </section>
+</body>
+</html>

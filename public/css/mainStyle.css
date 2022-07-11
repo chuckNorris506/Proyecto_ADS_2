@@ -1,0 +1,35 @@
+header {
+    background-color: green;
+    color: white;
+}
+
+header img {
+    width: 25%;
+}
+
+
+button {
+    background-color:lightgray ;
+    border-radius: 5px;
+    width: 20%;
+    padding: 1%;
+  }
+
+  button:hover {
+    background-color:lightgray ;
+    border-radius: 5px;
+    font-weight: bolder;
+  }
+
+  input[type="submit"] {
+    background-color:lightgray ;
+    border-radius: 5px;
+    width: 20%;
+    padding: 1%;
+  }
+
+  input[type=submit]:hover {
+    background-color:lightgray ;
+    border-radius: 5px;
+    font-weight: bolder;
+  }

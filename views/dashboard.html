@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Universidad Latina de Costa Rica</title>
+    <link rel="stylesheet" href="css/mainStyle.css">
+    <script type="text/javascript" src="js/isAuthenticated.js"></script>
+    <script type="text/javascript" src="js/dashboard.js"></script>
+</head>
+
+<body>
+    <header>
+        <img src="./img/logo_ulatina.png">
+        <h1>Dashboard</h1>
+    </header>
+    <nav>
+        <a href="./course.html">
+            <button>Crear nuevo registro</button>
+        </a>
+    </nav>
+
+    <section>
+        <select id="subject" name="subject" onchange="getData()">
+            <script>getSubjects()</script>
+        </select>
+
+        <h2>Registros gráficos</h2>
+        <p id="charts">
+        </p>
+
+        <h2>Notificaciones</h2>
+        <ul id="alerts">
+            <script>getAlerts()</script>
+        </ul>
+    </section>
+
+
+</body>
+
+</html>
