@@ -1,4 +1,4 @@
-const jwt = require('jsonwebtoken')
+const jwt = require('jsonwebtoken');
 
 const authenticate = async (req, res, next) => {
     const token = req.headers.authorization
@@ -17,13 +17,13 @@ const authenticate = async (req, res, next) => {
         }
     })
 
-}
+};
 
 const createJWT = async (id) => {
     return new Promise((resolve, reject) => {
-        resolve(jwt.sign({id}, process.env.JWT_SECRET,
+        resolve(jwt.sign({ id }, process.env.JWT_SECRET,
             { expiresIn: process.env.JWT_LIFETIME }))
     })
-}
+};
 
-module.exports = { authenticate, createJWT }
+module.exports = { authenticate, createJWT };

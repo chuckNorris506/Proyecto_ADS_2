@@ -1,12 +1,12 @@
-const database = require('../database/dbConnect')
+const database = require('../database/dbConnect');
 const { createJWT } = require('../middleware/authenticate');
 
 class User {
 
-    id
-    fullName
-    username
-    password
+    id;
+    fullName;
+    username;
+    password;
 
     async login(username, password) {
         return new Promise((resolve, reject) => {
@@ -21,8 +21,8 @@ class User {
                 }
             })
         })
-    }
+    };
 
-}
+};
 
-module.exports = User
+module.exports = User;

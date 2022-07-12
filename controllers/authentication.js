@@ -1,4 +1,4 @@
-const User = require('../models/User')
+const User = require('../models/User');
 
 const login = async (req, res) => {
 
@@ -20,6 +20,6 @@ const login = async (req, res) => {
         }).catch(() => {
             res.status(401).json({ msg: 'Credenciales inválidas' })
         })
-}
+};
 
-module.exports = login
+module.exports = login;

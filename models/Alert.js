@@ -1,10 +1,10 @@
-const database = require('../database/dbConnect')
+const database = require('../database/dbConnect');
 
 class Alert {
-    id
-    courseVarianceApproved
-    courseVarianceFailed
-    courseVarianceDropped
+    id;
+    courseVarianceApproved;
+    courseVarianceFailed;
+    courseVarianceDropped;
 
     getAlerts = async () => {
         return new Promise((resolve, reject) => {
@@ -23,8 +23,8 @@ class Alert {
                     }
                 })
         })
-    }
+    };
 
-}
+};
 
-module.exports = Alert
+module.exports = Alert;

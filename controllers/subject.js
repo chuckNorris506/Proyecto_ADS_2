@@ -1,4 +1,4 @@
-const Subject = require('../models/Subject.js')
+const Subject = require('../models/Subject.js');
 
 const createSubject = async (req, res) => {
 
@@ -20,7 +20,7 @@ const createSubject = async (req, res) => {
             res.status(409).json({ msg: 'Materia ya existe' })
         })
 
-}
+};
 
 const getSubjects = async (req, res) => {
 
@@ -32,7 +32,7 @@ const getSubjects = async (req, res) => {
         .catch(() => {
             res.status(404).json({ msg: 'No hay registros' })
         })
-}
+};
 
 const updateSubject = (req, res) => {
     const { id } = req.params
@@ -48,7 +48,7 @@ const updateSubject = (req, res) => {
     }).catch(() => {
         return res.status(400).json({ msg: 'Error actualizando materia' })
     })
-}
+};
 
 const deleteSubject = (req, res) => {
     const { id } = req.params
@@ -57,9 +57,9 @@ const deleteSubject = (req, res) => {
     subject.deleteSubject(id).then(() => {
         res.status(200).json({ msg: 'Materia eliminada' })
     })
-    .catch(()=> {
-        return res.status(400).json({ msg: 'Error eliminando materia' })
-    })
-}
+        .catch(() => {
+            return res.status(400).json({ msg: 'Error eliminando materia' })
+        })
+};
 
-module.exports = { createSubject, getSubjects, updateSubject, deleteSubject }
+module.exports = { createSubject, getSubjects, updateSubject, deleteSubject };

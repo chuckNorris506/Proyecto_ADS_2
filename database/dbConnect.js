@@ -1,4 +1,4 @@
-const mysql = require('mysql2')
+const mysql = require('mysql2');
 
 const getConnnection = () => {
     const connection = mysql.createConnection({
@@ -9,6 +9,6 @@ const getConnnection = () => {
     })
 
     return connection;
-}
+};
 
-module.exports = {getConnnection}
+module.exports = { getConnnection };

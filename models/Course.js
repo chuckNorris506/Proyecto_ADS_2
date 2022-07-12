@@ -1,24 +1,24 @@
-const database = require('../database/dbConnect')
+const database = require('../database/dbConnect');
 
 class Course {
 
-    id
-    subject
-    professor
-    schedule
-    quarter
-    year
-    studentsApproved
-    studentsFailed
-    studentsDropped
-    createdBy
-    status
+    id;
+    subject;
+    professor;
+    schedule;
+    quarter;
+    year;
+    studentsApproved;
+    studentsFailed;
+    studentsDropped;
+    createdBy;
+    status;
 
     createCourse = async (subject, professor, schedule, quarter, year, approved, failed, dropped, id) => {
         return new Promise((resolve, reject) => {
             const connection = database.getConnnection();
             connection.execute('CALL create_course(?,?,?,?,?,?,?,?,?)',
-                [subject, professor, schedule, quarter, year, approved, failed, dropped,id],
+                [subject, professor, schedule, quarter, year, approved, failed, dropped, id],
                 (err, results, fields) => {
                     if (err) {
                         reject()
@@ -29,7 +29,7 @@ class Course {
                 })
         })
 
-    }
+    };
 
     getCourse = async (id, option) => {
         return new Promise((resolve, reject) => {
@@ -49,7 +49,7 @@ class Course {
                     }
                 })
         })
-    }
+    };
 
     updateCourse = async (id, subject, professor, schedule, quarter, year, approved, failed, dropped) => {
         return new Promise((resolve, reject) => {
@@ -65,13 +65,13 @@ class Course {
                     }
                 })
         })
-    }
+    };
 
     deleteCourse = async (id) => {
         return new Promise((resolve, reject) => {
             const connection = database.getConnnection();
             connection.execute('CALL delete_course(?)',
-            [id],
+                [id],
                 (err, results, fields) => {
                     if (err) {
                         reject()
@@ -81,7 +81,7 @@ class Course {
                     }
                 })
         })
-    }
-}
+    };
+};
 
-module.exports = Course
+module.exports = Course;

@@ -1,4 +1,4 @@
-const Professor = require('../models/Professor.js')
+const Professor = require('../models/Professor.js');
 
 const createProfessor = async (req, res) => {
 
@@ -20,7 +20,7 @@ const createProfessor = async (req, res) => {
             res.status(409).json({ msg: 'Profesor ya existe' })
         })
 
-}
+};
 
 const getProfessors = async (req, res) => {
     const professor = new Professor()
@@ -30,7 +30,7 @@ const getProfessors = async (req, res) => {
         res.status(404).json({ msg: 'No hay registros' })
     })
 
-}
+};
 
 const updateProfessor = (req, res) => {
     const { id } = req.params
@@ -50,18 +50,18 @@ const updateProfessor = (req, res) => {
         }).catch(() => {
             return res.status(400).json({ msg: 'Error actualizando profesor' })
         })
-}
+};
 
-const deleteProfessor = (req, res) => { 
+const deleteProfessor = (req, res) => {
     const { id } = req.params
 
     const professor = new Professor()
     professor.deleteProfessor(id).then(() => {
         res.status(200).json({ msg: 'Profesor eliminado' })
     })
-    .catch(()=> {
-        return res.status(400).json({ msg: 'Error eliminando profesor' })
-    })
-}
+        .catch(() => {
+            return res.status(400).json({ msg: 'Error eliminando profesor' })
+        })
+};
 
-module.exports = { createProfessor, getProfessors, updateProfessor, deleteProfessor }
+module.exports = { createProfessor, getProfessors, updateProfessor, deleteProfessor };
