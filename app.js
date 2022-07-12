@@ -9,6 +9,7 @@ const professor = require('./routes/professor');
 const subject = require('./routes/subject');
 const course = require('./routes/course');
 const alert = require('./routes/alert');
+const notFound = require('./routes/notFound')
 
 app.use(express.json());
 app.use(express.static('views'));
@@ -18,6 +19,7 @@ app.use('/api/v1/professor', authenticate, professor);
 app.use('/api/v1/subject', authenticate, subject);
 app.use('/api/v1/course', authenticate, course);
 app.use('/api/v1/alert', authenticate, alert);
+app.use('*', notFound);
 
 app.listen(process.env.SERVER_PORT, async () => {
     console.log(`Server is listening on port ${process.env.SERVER_PORT}`)
