@@ -6,12 +6,13 @@ class Subject {
     name
     code
     createdBy
+    status
 
-    createSubject = async (name, code, u_id) => {
+    createSubject = async (name, code, id) => {
         return new Promise((resolve, reject) => {
             const connection = database.getConnnection();
             connection.execute('CALL create_subject(?,?,?)',
-                [name, code, u_id],
+                [name, code, id],
                 (err, results, fields) => {
                     if (err) {
                         reject()

@@ -11,12 +11,14 @@ class Course {
     studentsApproved
     studentsFailed
     studentsDropped
+    createdBy
+    status
 
-    createCourse = async (quarter, year, schedule, professor, subject, approved, failed, dropped, id) => {
+    createCourse = async (subject, professor, schedule, quarter, year, approved, failed, dropped, id) => {
         return new Promise((resolve, reject) => {
             const connection = database.getConnnection();
             connection.execute('CALL create_course(?,?,?,?,?,?,?,?,?)',
-                [subject, schedule, quarter, year, professor, approved, failed, dropped, id],
+                [subject, professor, schedule, quarter, year, approved, failed, dropped,id],
                 (err, results, fields) => {
                     if (err) {
                         reject()

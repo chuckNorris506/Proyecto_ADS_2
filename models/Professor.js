@@ -6,6 +6,7 @@ class Professor {
     fullName
     identification
     createdBy
+    status
 
     createProfessor = async (fullName, identification, id) => {
         return new Promise((resolve, reject) => {

@@ -26,13 +26,13 @@ DROP TABLE IF EXISTS `alerts`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `alerts` (
   `a_id` int NOT NULL AUTO_INCREMENT,
-  `c_id` int NOT NULL,
+  `course` int NOT NULL,
   `courseVarianceApproved` decimal(10,2) NOT NULL,
   `courseVarianceFailed` decimal(10,2) NOT NULL,
   `courseVarianceDropped` decimal(10,2) NOT NULL,
   PRIMARY KEY (`a_id`),
-  KEY `fk_alert_course_idx` (`c_id`),
-  CONSTRAINT `fk_alert_course` FOREIGN KEY (`c_id`) REFERENCES `courses` (`c_id`)
+  KEY `fk_alert_course_idx` (`course`),
+  CONSTRAINT `fk_alert_course` FOREIGN KEY (`course`) REFERENCES `courses` (`c_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -187,7 +187,7 @@ UNLOCK TABLES;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `create_course`(par_c_subject INT, par_c_schedule TIME, par_c_quarter INT, par_c_year INT, par_c_professor INT, 
+CREATE DEFINER=`root`@`localhost` PROCEDURE `create_course`(par_c_subject INT, par_c_professor INT , par_c_schedule TIME, par_c_quarter INT, par_c_year INT,  
 par_c_students_approved INT, par_c_students_failed INT, par_c_students_dropped INT, par_c_createdBy INT)
 BEGIN
 SET @approved = (SELECT SUM(c_students_approved) FROM courses WHERE c_subject = par_c_subject ORDER BY c_id DESC LIMIT 9);
@@ -217,7 +217,7 @@ SET @last_id = LAST_INSERT_ID();
 IF 
 @courseAverageApproved < 90 OR @courseAverageApproved > 110 OR @courseAverageFailed < 90 OR @courseAverageFailed > 110 OR @courseAverageDropped < 90 OR @courseAverageDropped > 110
 THEN
-INSERT INTO alerts(c_id,courseVarianceApproved, courseVarianceFailed, courseVarianceDropped)
+INSERT INTO alerts(course,courseVarianceApproved, courseVarianceFailed, courseVarianceDropped)
 VALUES (@last_id, @approvedVariance, @failedVariance, @droppedVariance);
 END IF;
 
@@ -532,4 +532,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-07-11 14:47:30
+-- Dump completed on 2022-07-11 19:16:04
