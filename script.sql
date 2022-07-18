@@ -33,7 +33,7 @@ CREATE TABLE `alerts` (
   PRIMARY KEY (`a_id`),
   KEY `fk_alert_course_idx` (`course`),
   CONSTRAINT `fk_alert_course` FOREIGN KEY (`course`) REFERENCES `courses` (`c_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -43,6 +43,31 @@ CREATE TABLE `alerts` (
 LOCK TABLES `alerts` WRITE;
 /*!40000 ALTER TABLE `alerts` DISABLE KEYS */;
 /*!40000 ALTER TABLE `alerts` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `campuses`
+--
+
+DROP TABLE IF EXISTS `campuses`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `campuses` (
+  `cp_id` int NOT NULL AUTO_INCREMENT,
+  `cp_name` varchar(45) NOT NULL,
+  PRIMARY KEY (`cp_id`),
+  UNIQUE KEY `cp_id_UNIQUE` (`cp_id`),
+  UNIQUE KEY `cp_name_UNIQUE` (`cp_name`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `campuses`
+--
+
+LOCK TABLES `campuses` WRITE;
+/*!40000 ALTER TABLE `campuses` DISABLE KEYS */;
+/*!40000 ALTER TABLE `campuses` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -56,6 +81,7 @@ CREATE TABLE `courses` (
   `c_id` int NOT NULL AUTO_INCREMENT,
   `c_subject` int NOT NULL,
   `c_professor` int NOT NULL,
+  `c_campus` int NOT NULL,
   `c_schedule` time NOT NULL,
   `c_quarter` int NOT NULL,
   `c_year` int NOT NULL,
@@ -64,15 +90,17 @@ CREATE TABLE `courses` (
   `c_students_dropped` int NOT NULL,
   `c_createdBy` int NOT NULL,
   `c_status` int NOT NULL DEFAULT '1',
-  PRIMARY KEY (`c_subject`,`c_professor`,`c_schedule`,`c_year`,`c_quarter`),
+  PRIMARY KEY (`c_subject`,`c_professor`,`c_schedule`,`c_quarter`,`c_year`,`c_campus`),
   UNIQUE KEY `subject_id_UNIQUE` (`c_id`),
   KEY `fk_subject_professor_idx` (`c_professor`),
   KEY `fk_subject_user_idx` (`c_createdBy`),
   KEY `fk_course_subject_idx` (`c_subject`),
+  KEY `fk_course_campus_idx` (`c_campus`),
+  CONSTRAINT `fk_course_campus` FOREIGN KEY (`c_campus`) REFERENCES `campuses` (`cp_id`),
   CONSTRAINT `fk_course_professor` FOREIGN KEY (`c_professor`) REFERENCES `professors` (`p_id`),
   CONSTRAINT `fk_course_subject` FOREIGN KEY (`c_subject`) REFERENCES `subjects` (`s_id`),
   CONSTRAINT `fk_course_user` FOREIGN KEY (`c_createdBy`) REFERENCES `users` (`u_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -81,7 +109,6 @@ CREATE TABLE `courses` (
 
 LOCK TABLES `courses` WRITE;
 /*!40000 ALTER TABLE `courses` DISABLE KEYS */;
-INSERT INTO `courses` VALUES (9,3,3,'17:00:00',1,2023,2,3,4,1,0),(11,3,4,'17:00:00',2,2022,25,2,0,1,1),(8,4,3,'17:00:00',1,2022,25,2,0,1,1),(6,4,3,'17:00:00',2,2022,25,2,0,1,1);
 /*!40000 ALTER TABLE `courses` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -103,7 +130,7 @@ CREATE TABLE `professors` (
   UNIQUE KEY `p_identification_UNIQUE` (`p_identification`),
   KEY `fk_professor_user_idx` (`p_createdBy`),
   CONSTRAINT `fk_professors_users` FOREIGN KEY (`p_createdBy`) REFERENCES `users` (`u_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -112,7 +139,6 @@ CREATE TABLE `professors` (
 
 LOCK TABLES `professors` WRITE;
 /*!40000 ALTER TABLE `professors` DISABLE KEYS */;
-INSERT INTO `professors` VALUES (3,'Gerardo Gamboa','8888',1,1),(4,' Jacqueline',' 4321',1,1);
 /*!40000 ALTER TABLE `professors` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -133,7 +159,7 @@ CREATE TABLE `subjects` (
   UNIQUE KEY `s_code_UNIQUE` (`s_code`),
   KEY `fk_subject_user_idx` (`s_createdBy`),
   CONSTRAINT `fk_subject_user` FOREIGN KEY (`s_createdBy`) REFERENCES `users` (`u_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -142,7 +168,6 @@ CREATE TABLE `subjects` (
 
 LOCK TABLES `subjects` WRITE;
 /*!40000 ALTER TABLE `subjects` DISABLE KEYS */;
-INSERT INTO `subjects` VALUES (3,'Análisis 3','BIS23',1,1),(4,'Progra 4',' BIS02',1,1);
 /*!40000 ALTER TABLE `subjects` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -177,6 +202,26 @@ UNLOCK TABLES;
 --
 -- Dumping routines for database 'ulatina'
 --
+/*!50003 DROP PROCEDURE IF EXISTS `create_campus` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `create_campus`(par_cp_name VARCHAR(45))
+BEGIN
+INSERT INTO campuses(cp_name)
+VALUES (par_cp_name);
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
 /*!50003 DROP PROCEDURE IF EXISTS `create_course` */;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
@@ -532,4 +577,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-07-11 19:16:04
+-- Dump completed on 2022-07-18 16:07:16
