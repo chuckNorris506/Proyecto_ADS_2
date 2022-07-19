@@ -1,3 +1,33 @@
+const getCampuses = async () => {
+
+    const options = {
+        method: 'GET',
+        headers: {
+            'Authorization': sessionStorage.getItem('jwt')
+        }
+    }
+
+    fetch(`api/v1/campus`, options)
+        .then(res => {
+            if (res.status === 200) {
+                res.json().then(res => {
+                    let options
+                    res.forEach(option => {
+                        options += `<option value=${option.cp_id}> ${option.cp_name}</option>`
+                    })
+                    document.getElementById('campus').innerHTML = options
+                    getData()
+                })
+            }
+            else if (res.status === 404) {
+                res.json().then(res => {
+                    document.getElementById('campus').innerHTML = `<option>${res.msg}</option>`
+                })
+            }
+        })
+        .catch(err => alert(err))
+}
+
 const getSubjects = async () => {
 
     const options = {
@@ -16,7 +46,7 @@ const getSubjects = async () => {
                         options += `<option value=${option.s_id}> ${option.s_name} ${option.s_code} </option>`
                     })
                     document.getElementById('subject').innerHTML = options
-                    getData()
+                    //getData()
                 })
             }
             else if (res.status === 404) {
@@ -27,10 +57,12 @@ const getSubjects = async () => {
         })
         .catch(err => alert(err))
 }
-const getData = async () => {
 
-    const id = document.getElementById('subject').value
-    const option = 'approved'
+const getChartData = async (option) => {
+
+    const subject = document.getElementById('subject').value
+    const campus = document.getElementById('campus').value
+
     const options = {
         method: 'GET',
         headers: {
@@ -38,7 +70,7 @@ const getData = async () => {
         }
     }
 
-    fetch(`api/v1/course/${id}/?option=${option}`, options)
+    fetch(`api/v1/course/${subject}/?option=${option}`, options)
         .then(res => {
             if (res.status === 200) {
 
@@ -69,25 +101,5 @@ const getData = async () => {
         .catch(err => alert(err))
 }
 
-const getAlerts = () => {
-    const options = {
-        method: 'GET',
-        headers: {
-            'Authorization': sessionStorage.getItem('jwt')
-        }
-    }
-    fetch(`api/v1/alert`, options)
-        .then(res => {
-            if (res.status === 200) {
-                res.json().then(res => {
-                    document.getElementById('alerts').innerHTML = JSON.stringify(res)
-                })
-            }
-            else if (res.status === 404) {
-                res.json().then(res => {
-                    alert('No hay datos')
-                })
-            }
-        })
-        .catch(err => alert(err))
-}
+
+

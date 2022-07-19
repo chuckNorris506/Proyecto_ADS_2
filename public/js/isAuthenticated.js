@@ -1,6 +1,6 @@
 const isAuthenticated = () => {
-    const jwt = sessionStorage.getItem('jwt')
-    if (!jwt) {
+
+    if (!sessionStorage.getItem('jwt')) {
         window.location.assign('/')
     }
 }

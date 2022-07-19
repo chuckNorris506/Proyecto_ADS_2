@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Universidad Latina de Costa Rica</title>
     <link rel="stylesheet" href="./css/main.css">
+    <link rel="stylesheet" href="./css/dashboard.css">
     <script type="text/javascript" src="js/isAuthenticated.js"></script>
     <script type="text/javascript" src="js/dashboard.js"></script>
 </head>
@@ -15,6 +16,9 @@
         <img src="./img/logo_ulatina.png">
     </header>
     <nav>
+        <a href="./dashboard.html">
+            <button style="background-color: hsl(78, 100%, 42%);">Inicio</button>
+        </a>
         <a href="./course.html">
             <button>Cursos</button>
         </a>
@@ -24,21 +28,29 @@
         <a href="./subject.html">
             <button>Materias</button>
         </a>
+        <a href="./notification.html">
+            <button>Notificaciones</button>
+        </a>
     </nav>
 
-    <section>
-        <select id="subject" name="subject" onchange="getData()">
+    <section id="menu">
+        <label for="campus">Sede</label>
+        <select id="campus" name="campus">
+            <script>getCampuses()</script>
+        </select>
+
+        <label for="subject">Materia</label>
+        <select id="subject" name="subject"
+            onchange="getChartData('approved');getChartData('failed');getChartData('dropped')">
             <script>getSubjects()</script>
         </select>
 
-        <h2>Registros gráficos</h2>
-        <p id="charts">
-        </p>
-
-        <h2>Notificaciones</h2>
-        <ul id="alerts">
-            <script>getAlerts()</script>
-        </ul>
+        <h2>Registros</h2>
+        <section id="charts">
+            <h3>Aprobados</h3>
+            <h3>Reprobados</h3>
+            <h3>Abandonaron</h3>
+        </section>
     </section>
 
 

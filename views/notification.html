@@ -7,7 +7,7 @@
     <title>Universidad Latina de Costa Rica</title>
     <link rel="stylesheet" href="./css/main.css">
     <script type="text/javascript" src="js/isAuthenticated.js"></script>
-    <script type="text/javascript" src="js/subject.js"></script>
+    <script type="text/javascript" src="js/notification.js"></script>
 </head>
 
 <body>
@@ -25,20 +25,15 @@
             <button>Profesores</button>
         </a>
         <a href="./subject.html">
-            <button style="background-color: hsl(78, 100%, 42%);">Materias</button>
+            <button>Materias</button>
         </a>
         <a href="./notification.html">
-            <button>Notificaciones</button>
+            <button style="background-color: hsl(78, 100%, 42%);">Notificaciones</button>
         </a>
     </nav>
     <section>
-        <form onsubmit="createSubject(); return false;">
-            <label for="name">Nombre de Materia</label>
-            <input id="name" type="text" placeholder="Nombre materia" maxlength="45" required>
-            <label for="code">Código materia</label>
-            <input id="code" type="text" placeholder="Código materia" maxlength="45" required>
-            <input type="submit" value="Crear Materia">
-        </form>
+        <script>getAlerts()</script>
+        <p id="alerts"></p>
     </section>
 </body>
 

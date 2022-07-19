@@ -2,19 +2,19 @@ const Course = require('../models/Course.js');
 
 const createCourse = async (req, res) => {
 
-    const { quarter, year, schedule, professor, subject, approved, failed, dropped } = req.body
-
-    if (!(quarter || year || schedule || professor || subject || approved || failed || dropped)) {
+    const { quarter, year, schedule, professor, subject, campus, approved, failed, dropped } = req.body
+    
+    if (!(quarter || year || schedule || professor || subject || campus || approved || failed || dropped)) {
         return res.status(400).json({ msg: 'Por favor brindar todos los valores' })
     }
-    if (quarter.length > 1 || year.length > 4 || schedule.length > 10 || professor.length > 1 || subject.length > 1 ||
-        approved.length > 2 || failed.length > 2 || dropped.length > 2) {
+    if (quarter.length > 1 || year.length > 4 || schedule.length > 10 || professor.length > 1 || subject.length > 1
+        || campus.length > 1 || approved.length > 2 || failed.length > 2 || dropped.length > 2) {
         return res.status(400).json({ msg: 'Por favor brindar valores válidos' })
     }
 
     const course = new Course()
 
-    course.createCourse(subject, professor, schedule, quarter, year, approved, failed, dropped, req.user.id.id)
+    course.createCourse(subject, professor, campus , schedule, quarter, year, approved, failed, dropped, req.user.id.id)
         .then(() => {
             res.status(201).json({ msg: 'Curso creado' })
         }).catch(() => {

@@ -31,30 +31,3 @@ const createProfessor = async () => {
         .catch(err => alert(err))
 }
 
-const getProfessors = async () => {
-    const options = {
-        method: 'GET',
-        headers: {
-            'Authorization': sessionStorage.getItem('jwt')
-        }
-    }
-
-    fetch(`api/v1/professor`, options)
-        .then(res => {
-            if (res.status === 200) {
-                res.json().then(res => {
-                    let options
-                    res.forEach(option => {
-                        options += `<option value=${option.p_id}> ${option.p_fullName} </option>`
-                    })
-                    document.getElementById('professor').innerHTML = options
-                })
-            }
-            else if (res.status === 404) {
-                res.json().then(res => {
-                    document.getElementById('professor').innerHTML = `<option>${res.msg}</option>`
-                })
-            }
-        })
-        .catch(err => alert(err))
-}

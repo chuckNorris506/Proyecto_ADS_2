@@ -8,20 +8,27 @@
     <link rel="stylesheet" href="./css/main.css">
     <script type="text/javascript" src="js/isAuthenticated.js"></script>
     <script type="text/javascript" src="js/course.js"></script>
-    <script type="text/javascript" src="js/professor.js"></script>
-    <script type="text/javascript" src="js/subject.js"></script>
 </head>
 
 <body>
     <header>
-        <img src="./img/logo_ulatina.png">        
+        <img src="./img/logo_ulatina.png">
     </header>
     <nav>
+        <a href="./dashboard.html">
+            <button >Inicio</button>
+        </a>
+        <a href="./course.html">
+            <button style="background-color: hsl(78, 100%, 42%);">Cursos</button>
+        </a>
         <a href="./professor.html">
             <button>Profesores</button>
         </a>
         <a href="./subject.html">
             <button>Materias</button>
+        </a>
+        <a href="./notification.html">
+            <button>Notificaciones</button>
         </a>
     </nav>
 
@@ -43,6 +50,10 @@
             <label for="subject">Seleccione Materia</label>
             <select id="subject" required>
                 <script>getSubjects()</script>
+            </select>
+            <label for="campus">Seleccione Sede</label>
+            <select id="campus" required>
+                <script>getCampuses()</script>
             </select>
             <label for="studentsApproved">Cantidad de estudiantes aprobados</label>
             <input name="studentsApproved" id="approved" type="number" min="0" placeholder="Cantidad" required>

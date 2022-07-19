@@ -1,19 +1,28 @@
-#loginSection {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-top: 10%;
+section {
+    display: grid;
+    grid-template-columns: 25%;
+    justify-content: center;
+    margin-top: 5%;
 }
 
-input{
-    display: block;
-    width: 30%;
+section * {
+    margin: 0.5%;
+    padding: 3%;
 }
 
-#forgotPassword {
-    margin: 1%;
+section h1 {
+    justify-self: center;
 }
 
-#loginButtons button{
-   width: 50%; 
+section a {
+    text-decoration: none;
 }
+
+section a:hover {
+    font-weight: bolder;
+}
+
+div {
+    display: grid;
+    grid-template-columns: 50% 50%;
+   }

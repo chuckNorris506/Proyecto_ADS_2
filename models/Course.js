@@ -14,11 +14,11 @@ class Course {
     createdBy;
     status;
 
-    createCourse = async (subject, professor, schedule, quarter, year, approved, failed, dropped, id) => {
+    createCourse = async (subject, professor, campus ,schedule, quarter, year, approved, failed, dropped, id) => {
         return new Promise((resolve, reject) => {
             const connection = database.getConnnection();
-            connection.execute('CALL create_course(?,?,?,?,?,?,?,?,?)',
-                [subject, professor, schedule, quarter, year, approved, failed, dropped, id],
+            connection.execute('CALL create_course(?,?,?,?,?,?,?,?,?,?)',
+                [subject, professor, campus ,schedule, quarter, year, approved, failed, dropped, id],
                 (err, results, fields) => {
                     if (err) {
                         reject()

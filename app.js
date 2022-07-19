@@ -9,6 +9,7 @@ const professor = require('./routes/professor');
 const subject = require('./routes/subject');
 const course = require('./routes/course');
 const alert = require('./routes/alert');
+const campus = require('./routes/campus');
 const notFound = require('./routes/notFound')
 
 app.use(express.json());
@@ -19,6 +20,7 @@ app.use('/api/v1/professor', authenticate, professor);
 app.use('/api/v1/subject', authenticate, subject);
 app.use('/api/v1/course', authenticate, course);
 app.use('/api/v1/alert', authenticate, alert);
+app.use('/api/v1/campus', authenticate, campus);
 app.use('*', notFound);
 
 app.listen(process.env.SERVER_PORT, async () => {

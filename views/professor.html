@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,18 +9,37 @@
     <script type="text/javascript" src="js/isAuthenticated.js"></script>
     <script type="text/javascript" src="js/professor.js"></script>
 </head>
+
 <body>
-<header>
+    <header>
         <img src="./img/logo_ulatina.png">
     </header>
-<section>
+    <nav>
+        <a href="./dashboard.html">
+            <button >Inicio</button>
+        </a>
+        <a href="./course.html">
+            <button>Cursos</button>
+        </a>
+        <a href="./professor.html">
+            <button style="background-color: hsl(78, 100%, 42%);">Profesores</button>
+        </a>
+        <a href="./subject.html">
+            <button>Materias</button>
+        </a>
+        <a href="./notification.html">
+            <button>Notificaciones</button>
+        </a>
+    </nav>
+    <section>
         <form onsubmit="createProfessor(); return false">
             <label for="fullname">Nombre de Profesor</label>
             <input id="fullname" type="text" placeholder="Nombre completo" maxlength="45" required>
             <label for="identification">Ingrese carné profesor</label>
-            <input id="identification" type="text"  placeholder="Carné" maxlength="45" required>
+            <input id="identification" type="text" placeholder="Carné" maxlength="45" required>
             <input type="submit" value="Crear profesor">
         </form>
     </section>
 </body>
+
 </html>

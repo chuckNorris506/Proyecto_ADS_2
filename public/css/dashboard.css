@@ -1,0 +1,13 @@
+section * {
+    margin: 0.5%;
+    padding: 0.5%;
+}
+
+section select {
+    width: 10%;
+}
+
+#charts {
+    display: grid;
+    grid-template-columns: 33% 33% 33%;
+}

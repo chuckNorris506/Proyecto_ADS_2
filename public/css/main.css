@@ -10,16 +10,39 @@ header {
 
 header img {
     width: 25%;
+    height: auto;
 }
 
 button {
     background-color:hsl(78, 100%, 42%);
     color: black;
-    border-radius: 5px;
   }
 
   button:hover {
     background-color:hsl(78, 90%, 52%);
-    border-radius: 5px;
     font-weight: bolder;
+  }
+
+  nav {
+    width: 50%;
+    display: grid;
+    grid-template-columns: 20% 20% 20% 20% 20%;
+    margin: 1%;
+  }
+
+  nav * {    
+    padding: 1%;
+    border-radius: 30px;
+  }
+
+  nav button {
+    background-color: white;
+    padding: 8%;
+    text-decoration: none;
+    border-radius: 30px;
+    width: 100%;
+  }
+
+  nav button:hover {
+    border-radius: 30px;
   }
