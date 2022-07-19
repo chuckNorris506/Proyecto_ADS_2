@@ -35,20 +35,25 @@
 
     <section id="menu">
         <label for="campus">Sede</label>
-        <select id="campus" name="campus">
+        <select id="campus" name="campus" onchange="getChartData()">
             <script>getCampuses()</script>
         </select>
 
         <label for="subject">Materia</label>
-        <select id="subject" name="subject"
-            onchange="getChartData('approved');getChartData('failed');getChartData('dropped')">
+        <select id="subject" name="subject" onchange="getChartData()">
             <script>getSubjects()</script>
         </select>
 
         <h2>Registros</h2>
         <section id="charts">
+            <div id="approved">
+            </div>
             <h3>Aprobados</h3>
+            <div id="failed">
+            </div>
             <h3>Reprobados</h3>
+            <div id="dropped">
+            </div>
             <h3>Abandonaron</h3>
         </section>
     </section>

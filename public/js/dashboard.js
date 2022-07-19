@@ -16,7 +16,6 @@ const getCampuses = async () => {
                         options += `<option value=${option.cp_id}> ${option.cp_name}</option>`
                     })
                     document.getElementById('campus').innerHTML = options
-                    getData()
                 })
             }
             else if (res.status === 404) {
@@ -46,7 +45,7 @@ const getSubjects = async () => {
                         options += `<option value=${option.s_id}> ${option.s_name} ${option.s_code} </option>`
                     })
                     document.getElementById('subject').innerHTML = options
-                    //getData()
+                    getChartData()
                 })
             }
             else if (res.status === 404) {
@@ -58,7 +57,13 @@ const getSubjects = async () => {
         .catch(err => alert(err))
 }
 
-const getChartData = async (option) => {
+const getChartData = async () => {
+    getData('approved')
+    getData('failed')
+    getData('dropped')
+}
+
+const getData = async (option) => {
 
     const subject = document.getElementById('subject').value
     const campus = document.getElementById('campus').value
@@ -88,13 +93,12 @@ const getChartData = async (option) => {
                         mostRecent: mostRecent,
                         average: average
                     }
-                    document.getElementById('charts').innerHTML = JSON.stringify(data)
+                    document.getElementById(`${option}`).innerHTML = JSON.stringify(data)
                 })
             }
             else if (res.status === 404) {
                 res.json().then(res => {
-                    document.getElementById('charts').innerHTML = ""
-                    alert('No hay datos')
+                    document.getElementById(`${option}`).innerHTML = res.msg
                 })
             }
         })
