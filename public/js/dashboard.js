@@ -58,9 +58,9 @@ const getSubjects = async () => {
 }
 
 const getChartData = async () => {
-    getData('approved')
-    getData('failed')
-    getData('dropped')
+    getData('approved');
+    getData('failed');
+    getData('dropped');
 }
 
 const getData = async (option) => {
@@ -93,7 +93,8 @@ const getData = async (option) => {
                         mostRecent: mostRecent,
                         average: average
                     }
-                    document.getElementById(`${option}`).innerHTML = JSON.stringify(data)
+                    //document.getElementById(`${option}`).innerHTML = JSON.stringify(data)
+                    createChart(data.mostRecent, data.average, option)
                 })
             }
             else if (res.status === 404) {
@@ -104,6 +105,30 @@ const getData = async (option) => {
         })
         .catch(err => alert(err))
 }
+
+const createChart = async (mostRecent, average, option) => {
+    google.charts.load('current', { 'packages': ['corechart'] });
+    google.charts.setOnLoadCallback(drawChart);
+
+    // Draw the chart and set the chart values
+    function drawChart() {
+        var data = google.visualization.arrayToDataTable([
+            ['Task', 'Hours per Day'],
+            ['Reciente', mostRecent],
+            ['Promedio', average]
+        ]);
+
+        // Optional; add a title and set the width and height of the chart
+        var options = { 'title': option, 'width': 550, 'height': 400, is3D: true, slices: {1: {offset: 0.1}} };
+
+        // Display the chart inside the <div> element with id="piechart"
+        var chart = new google.visualization.PieChart(document.getElementById(option));
+        chart.draw(data, options);
+    }
+}
+
+//https://developers.google.com/chart/interactive/docs/gallery/piechart
+//https://www.w3schools.com/howto/howto_google_charts.asp
 
 
 

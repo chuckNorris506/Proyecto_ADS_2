@@ -9,5 +9,10 @@ section select {
 
 #charts {
     display: grid;
-    grid-template-columns: 33% 33% 33%;
+    grid-template-columns: auto auto auto;
+    grid-row-start: auto;
+    justify-content: left;
+}
+#charts * {
+    margin: 1%;
 }
