@@ -16,7 +16,6 @@ button {
     background-color:hsl(78, 100%, 42%);
     color: black;
     border-radius: 5px;
-    padding: 1%;
   }
 
   button:hover {

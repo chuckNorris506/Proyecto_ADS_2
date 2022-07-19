@@ -5,6 +5,11 @@ section {
     margin-top: 10%;
 }
 
+section * {
+    padding: 0.5%;
+    margin: 0.5%;
+}
+
 input{
     display: block;
     width: 30%;
