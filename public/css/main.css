@@ -1,0 +1,26 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+header {
+    height: 5%;
+    background-color: hsla(240, 1%, 31%, 0.522);
+}
+
+header img {
+    width: 30%;
+}
+
+button {
+    background-color:hsl(78, 100%, 42%);
+    color: black;
+    border-radius: 5px;
+    padding: 1%;
+  }
+
+  button:hover {
+    background-color:hsl(78, 90%, 52%);
+    border-radius: 5px;
+    font-weight: bolder;
+  }
