@@ -33,7 +33,7 @@ CREATE TABLE `alerts` (
   PRIMARY KEY (`a_id`),
   KEY `fk_alert_course_idx` (`course`),
   CONSTRAINT `fk_alert_course` FOREIGN KEY (`course`) REFERENCES `courses` (`c_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -42,7 +42,7 @@ CREATE TABLE `alerts` (
 
 LOCK TABLES `alerts` WRITE;
 /*!40000 ALTER TABLE `alerts` DISABLE KEYS */;
-INSERT INTO `alerts` VALUES (8,25,3300.00,3300.00,3300.00),(9,26,94.29,94.29,94.29);
+INSERT INTO `alerts` VALUES (1,8,-38.98,-17.65,-70.00);
 /*!40000 ALTER TABLE `alerts` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -68,7 +68,7 @@ CREATE TABLE `campuses` (
 
 LOCK TABLES `campuses` WRITE;
 /*!40000 ALTER TABLE `campuses` DISABLE KEYS */;
-INSERT INTO `campuses` VALUES (7,'Heredia'),(8,'San Pedro');
+INSERT INTO `campuses` VALUES (8,'Cañas'),(4,'Ciudad Neily'),(7,'Grecia'),(1,'Heredia'),(5,'Pérez Zeledón'),(2,'San Pedro'),(3,'Santa Cruz');
 /*!40000 ALTER TABLE `campuses` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -102,7 +102,7 @@ CREATE TABLE `courses` (
   CONSTRAINT `fk_course_professor` FOREIGN KEY (`c_professor`) REFERENCES `professors` (`p_id`),
   CONSTRAINT `fk_course_subject` FOREIGN KEY (`c_subject`) REFERENCES `subjects` (`s_id`),
   CONSTRAINT `fk_course_user` FOREIGN KEY (`c_createdBy`) REFERENCES `users` (`u_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -111,7 +111,7 @@ CREATE TABLE `courses` (
 
 LOCK TABLES `courses` WRITE;
 /*!40000 ALTER TABLE `courses` DISABLE KEYS */;
-INSERT INTO `courses` VALUES (24,6,7,7,'17:00:00',2,2022,1,1,1,1,1),(25,6,7,7,'20:00:00',2,2022,34,34,34,1,1),(26,6,7,7,'23:00:00',2,2022,34,34,34,1,1);
+INSERT INTO `courses` VALUES (8,1,1,1,'17:00:00',2,2023,18,7,3,1,1),(7,1,1,1,'17:00:00',3,2022,34,15,20,1,1),(1,1,1,1,'19:30:00',2,2022,25,2,0,1,1),(2,2,1,2,'17:00:00',1,2023,2,3,4,1,1),(4,2,2,1,'19:30:00',1,2022,23,1,0,1,1),(6,2,2,1,'19:30:00',2,2022,23,1,1,1,1);
 /*!40000 ALTER TABLE `courses` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -133,7 +133,7 @@ CREATE TABLE `professors` (
   UNIQUE KEY `p_identification_UNIQUE` (`p_identification`),
   KEY `fk_professor_user_idx` (`p_createdBy`),
   CONSTRAINT `fk_professors_users` FOREIGN KEY (`p_createdBy`) REFERENCES `users` (`u_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -142,7 +142,7 @@ CREATE TABLE `professors` (
 
 LOCK TABLES `professors` WRITE;
 /*!40000 ALTER TABLE `professors` DISABLE KEYS */;
-INSERT INTO `professors` VALUES (7,'abc','123',1,1);
+INSERT INTO `professors` VALUES (1,'Jacqueline Méndez','12345678',1,1),(2,' Gerardo Gamboa','87654321',1,1);
 /*!40000 ALTER TABLE `professors` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -163,7 +163,7 @@ CREATE TABLE `subjects` (
   UNIQUE KEY `s_code_UNIQUE` (`s_code`),
   KEY `fk_subject_user_idx` (`s_createdBy`),
   CONSTRAINT `fk_subject_user` FOREIGN KEY (`s_createdBy`) REFERENCES `users` (`u_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -172,7 +172,7 @@ CREATE TABLE `subjects` (
 
 LOCK TABLES `subjects` WRITE;
 /*!40000 ALTER TABLE `subjects` DISABLE KEYS */;
-INSERT INTO `subjects` VALUES (6,'Analisis 2','BIS20',1,1),(7,'Porgra 4','123',1,1);
+INSERT INTO `subjects` VALUES (1,'Análisis y diseño de sistemas 2','BIS01',1,1),(2,' Programación 4','BIS02',1,1);
 /*!40000 ALTER TABLE `subjects` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -412,7 +412,7 @@ DELIMITER ;
 DELIMITER ;;
 CREATE DEFINER=`root`@`localhost` PROCEDURE `get_Campuses`()
 BEGIN
-SELECT cp_id, cp_name FROM campuses;
+SELECT cp_id, cp_name FROM campuses ORDER BY cp_id;
 END ;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
@@ -429,17 +429,33 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `get_course`(par_s_id INT, par_option VARCHAR(15))
+CREATE DEFINER=`root`@`localhost` PROCEDURE `get_course`(par_c_subject INT, par_c_campus INT,par_option VARCHAR(15))
 BEGIN
-IF par_option = 'approved'
+
+IF par_c_campus = 1
 THEN
-SELECT  c_students_approved as approved FROM courses WHERE c_subject = par_s_id ORDER BY c_id DESC LIMIT 10;
-ELSEIF par_option = 'failed'
-THEN 
-SELECT  c_students_failed as failed FROM courses WHERE c_subject = par_s_id ORDER BY c_id DESC LIMIT 10;
-ELSEIF par_option = 'dropped'
-THEN 
-SELECT  c_students_dropped as dropped FROM courses WHERE c_subject = par_s_id ORDER BY c_id DESC LIMIT 10;
+		IF par_option = 'approved'
+		THEN
+		SELECT  c_students_approved as approved FROM courses WHERE c_subject = par_c_subject ORDER BY c_id DESC LIMIT 10;
+		ELSEIF par_option = 'failed'
+		THEN 
+		SELECT  c_students_failed as failed FROM courses WHERE c_subject = par_c_subject ORDER BY c_id DESC LIMIT 10;
+		ELSEIF par_option = 'dropped'
+		THEN 
+		SELECT  c_students_dropped as dropped FROM courses WHERE c_subject = par_c_subject ORDER BY c_id DESC LIMIT 10;
+        END IF;
+ELSEIF par_c_campus != 1
+THEN
+		IF par_option = 'approved'
+		THEN
+		SELECT  c_students_approved as approved FROM courses WHERE c_subject = par_c_subject AND c_campus = par_c_campus ORDER BY c_id DESC LIMIT 10;
+		ELSEIF par_option = 'failed'
+		THEN 
+		SELECT  c_students_failed as failed FROM courses WHERE c_subject = par_c_subject AND c_campus = par_c_campus ORDER BY c_id DESC LIMIT 10;
+		ELSEIF par_option = 'dropped'
+		THEN 
+		SELECT  c_students_dropped as dropped FROM courses WHERE c_subject = par_c_subject AND c_campus = par_c_campus ORDER BY c_id DESC LIMIT 10;
+        END IF;
 END IF;
 END ;;
 DELIMITER ;
@@ -536,11 +552,11 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `update_course`(par_c_id INT, par_c_subject INT, par_c_professor INT, par_c_schedule TIME, par_c_quarter INT, par_c_year INT,  
+CREATE DEFINER=`root`@`localhost` PROCEDURE `update_course`(par_c_id INT, par_c_subject INT, par_c_professor INT,  par_c_campus INT,par_c_schedule TIME, par_c_quarter INT, par_c_year INT,  
 par_c_students_approved INT, par_c_students_failed INT, par_c_students_dropped INT)
 BEGIN
 UPDATE courses
-SET c_subject=par_c_subject, c_professor=par_c_professor, c_schedule=par_c_schedule, c_quarter=par_c_quarter, c_year=par_c_year,
+SET c_subject=par_c_subject, c_professor=par_c_professor, c_campus=par_c_campus,c_schedule=par_c_schedule, c_quarter=par_c_quarter, c_year=par_c_year,
  c_students_approved=par_c_students_approved, c_students_failed=par_c_students_failed, c_students_dropped=par_c_students_dropped
  WHERE c_id=par_c_id;
 END ;;
@@ -601,4 +617,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-07-18 23:54:49
+-- Dump completed on 2022-07-19 23:13:18

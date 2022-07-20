@@ -3,7 +3,7 @@ const Course = require('../models/Course.js');
 const createCourse = async (req, res) => {
 
     const { quarter, year, schedule, professor, subject, campus, approved, failed, dropped } = req.body
-    
+
     if (!(quarter || year || schedule || professor || subject || campus || approved || failed || dropped)) {
         return res.status(400).json({ msg: 'Por favor brindar todos los valores' })
     }
@@ -14,7 +14,7 @@ const createCourse = async (req, res) => {
 
     const course = new Course()
 
-    course.createCourse(subject, professor, campus , schedule, quarter, year, approved, failed, dropped, req.user.id.id)
+    course.createCourse(subject, professor, campus, schedule, quarter, year, approved, failed, dropped, req.user.id.id)
         .then(() => {
             res.status(201).json({ msg: 'Curso creado' })
         }).catch(() => {
@@ -24,9 +24,9 @@ const createCourse = async (req, res) => {
 
 const getCourse = async (req, res) => {
     const { id } = req.params
-    const { option } = req.query
+    const { campus, option } = req.query
 
-    if (!(id || option)) {
+    if (!(id || option || campus)) {
         return res.status(400).json({ msg: 'Por favor brindar todo los valores' })
     }
 
@@ -43,7 +43,7 @@ const getCourse = async (req, res) => {
 
     const course = new Course()
 
-    course.getCourse(id, option).then(data => {
+    course.getCourse(id, campus, option).then(data => {
         res.status(200).json(data)
     })
         .catch(() => {
@@ -53,18 +53,18 @@ const getCourse = async (req, res) => {
 
 const updateCourse = (req, res) => {
     const { id } = req.params
-    const { subject, professor, schedule, quarter, year, approved, failed, dropped } = req.body
+    const { subject, professor, campus, schedule, quarter, year, approved, failed, dropped } = req.body
 
-    if (!(quarter || year || schedule || professor || subject || approved || failed || dropped)) {
+    if (!(quarter || year || schedule || campus || professor || subject || approved || failed || dropped)) {
         return res.status(400).json({ msg: 'Por favor brindar todos los valores' })
     }
-    if (quarter.length > 1 || year.length > 4 || schedule.length > 10 || professor.length > 1 || subject.length > 1 ||
-        approved.length > 2 || failed.length > 2 || dropped.length > 2) {
+    if (quarter.length > 1 || year.length > 4 || schedule.length > 10 || professor.length > 1 || campus.length > 1
+        || subject.length > 1 || approved.length > 2 || failed.length > 2 || dropped.length > 2) {
         return res.status(400).json({ msg: 'Por favor brindar valores válidos' })
     }
 
     const course = new Course()
-    course.updateCourse(id, subject, professor, schedule, quarter, year, approved, failed, dropped)
+    course.updateCourse(id, subject, professor, campus, schedule, quarter, year, approved, failed, dropped)
         .then(() => {
             res.status(200).json({ msg: 'Curso actualizado' })
         }).catch(() => {

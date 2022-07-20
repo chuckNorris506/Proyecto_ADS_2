@@ -11,11 +11,11 @@ const getCampuses = async () => {
         .then(res => {
             if (res.status === 200) {
                 res.json().then(res => {
-                    let options
+                    let data = "<option value=1>Todos</option>"
                     res.forEach(option => {
-                        options += `<option value=${option.cp_id}> ${option.cp_name}</option>`
+                        data += `<option value=${option.cp_id}> ${option.cp_name}</option>`
                     })
-                    document.getElementById('campus').innerHTML = options
+                    document.getElementById('campus').innerHTML = data
                 })
             }
             else if (res.status === 404) {
@@ -40,11 +40,11 @@ const getSubjects = async () => {
         .then(res => {
             if (res.status === 200) {
                 res.json().then(res => {
-                    let options
+                    let data
                     res.forEach(option => {
-                        options += `<option value=${option.s_id}> ${option.s_name} ${option.s_code} </option>`
+                        data += `<option value=${option.s_id}> ${option.s_name} ${option.s_code} </option>`
                     })
-                    document.getElementById('subject').innerHTML = options
+                    document.getElementById('subject').innerHTML = data
                     getChartData()
                 })
             }
@@ -75,7 +75,7 @@ const getData = async (option) => {
         }
     }
 
-    fetch(`api/v1/course/${subject}/?option=${option}`, options)
+    fetch(`api/v1/course/${subject}/?campus=${campus}&option=${option}`, options)
         .then(res => {
             if (res.status === 200) {
 
@@ -93,7 +93,7 @@ const getData = async (option) => {
                         mostRecent: mostRecent,
                         average: average
                     }
-                    //document.getElementById(`${option}`).innerHTML = JSON.stringify(data)
+                    
                     createChart(data.mostRecent, data.average, option)
                 })
             }
@@ -110,18 +110,31 @@ const createChart = async (mostRecent, average, option) => {
     google.charts.load('current', { 'packages': ['corechart'] });
     google.charts.setOnLoadCallback(drawChart);
 
-    // Draw the chart and set the chart values
+
     function drawChart() {
         var data = google.visualization.arrayToDataTable([
             ['Task', 'Hours per Day'],
             ['Reciente', mostRecent],
             ['Promedio', average]
-        ]);
+        ])
 
-        // Optional; add a title and set the width and height of the chart
-        var options = { 'title': option, 'width': 400, 'height': 400, is3D: true, slices: {1: {offset: 0.1}} };
+        let title;
 
-        // Display the chart inside the <div> element with id="piechart"
+        switch (option) {
+            case 'approved':
+                title = 'Aprobados'
+                break;
+            case 'failed':
+                title = 'Reprobados'
+                break;
+            case 'dropped':
+                title = 'Abandonaron'
+                break;
+        };
+
+        var options = { 'title': title, 'width': 400, 'height': 400, is3D: true, slices: { 1: { offset: 0.1 } } };
+
+
         var chart = new google.visualization.PieChart(document.getElementById(option));
         chart.draw(data, options);
     }

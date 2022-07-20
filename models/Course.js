@@ -27,15 +27,16 @@ class Course {
                         resolve()
                     }
                 })
+                connection.end()
         })
 
     };
 
-    getCourse = async (id, option) => {
+    getCourse = async (id, campus, option) => {
         return new Promise((resolve, reject) => {
             const connection = database.getConnnection();
-            connection.execute('CALL get_course(?,?)',
-                [id, option],
+            connection.execute('CALL get_course(?,?,?)',
+                [id, campus, option],
                 (err, results, fields) => {
                     if (err) {
                         reject()
@@ -48,14 +49,15 @@ class Course {
                         resolve(results[0])
                     }
                 })
+                connection.end()
         })
     };
 
-    updateCourse = async (id, subject, professor, schedule, quarter, year, approved, failed, dropped) => {
+    updateCourse = async (id, subject, campus, professor, schedule, quarter, year, approved, failed, dropped) => {
         return new Promise((resolve, reject) => {
             const connection = database.getConnnection();
-            connection.execute('CALL update_course(?,?,?,?,?,?,?,?,?)',
-                [id, subject, professor, schedule, quarter, year, approved, failed, dropped],
+            connection.execute('CALL update_course(?,?,?,?,?,?,?,?,?,?)',
+                [id, subject, professor, campus, schedule, quarter, year, approved, failed, dropped],
                 (err, results, fields) => {
                     if (err) {
                         reject()
@@ -64,6 +66,7 @@ class Course {
                         resolve()
                     }
                 })
+                connection.end()
         })
     };
 
@@ -80,6 +83,7 @@ class Course {
                         resolve()
                     }
                 })
+                connection.end()
         })
     };
 };
