@@ -8,30 +8,27 @@
     <link rel="stylesheet" href="./css/main.css">
     <script type="text/javascript" src="js/isAuthenticated.js"></script>
     <script type="text/javascript" src="js/subject.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" />
 </head>
 
 <body>
     <header>
-        <img src="./img/logo_ulatina.png">
+        <nav class="main-nav">
+            <input type="checkbox" id="check" />
+            <label for="check" class="menu-btn">
+                <i class="fas fa-bars"></i>
+            </label>
+            <img class="logo" src="./img/logo_ulatina.png">
+            <ul class="navlinks">
+                <li><a href="./dashboard.html">Inicio</a></li>
+                <li><a href="./course.html">Cursos</a></li>
+                <li><a href="./professor.html">Profesor</a></li>
+                <li><a href="./subject.html" class="choose">Materias</a></li>
+                <li><a href="./notification.html">Notificaciones</a></li>
+            </ul>
+        </nav>
     </header>
-    <nav>
-        <a href="./dashboard.html">
-            <button >Inicio</button>
-        </a>
-        <a href="./course.html">
-            <button>Cursos</button>
-        </a>
-        <a href="./professor.html">
-            <button>Profesores</button>
-        </a>
-        <a href="./subject.html">
-            <button style="background-color: hsl(78, 100%, 42%);">Materias</button>
-        </a>
-        <a href="./notification.html">
-            <button>Notificaciones</button>
-        </a>
-    </nav>
-    <section>
+    <div class="container">
         <form onsubmit="createSubject(); return false;">
             <label for="name">Nombre de Materia</label>
             <input id="name" type="text" placeholder="Nombre materia" maxlength="45" required>
@@ -39,7 +36,7 @@
             <input id="code" type="text" placeholder="Código materia" maxlength="45" required>
             <input type="submit" value="Crear Materia">
         </form>
-    </section>
+    </div>
 </body>
 
 </html>

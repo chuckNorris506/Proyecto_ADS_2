@@ -1,18 +1,16 @@
-section * {
-    margin: 0.5%;
-    padding: 0.5%;
+
+
+/* container */
+
+.containerCharts{
+  background:#FFFEFE;
+  border: #EAEAEA;
+  border-radius: 5px;
+  margin: 10px;
+  padding: 10px;
 }
 
-section select {
-    width: 10%;
-}
-
-#charts {
-    display: grid;
-    grid-template-columns: auto auto auto;
-    grid-row-start: auto;
-    justify-content: left;
-}
-#charts * {
-    margin: 1%;
+#charts{
+  display: flex;
+  flex-wrap: wrap;
 }

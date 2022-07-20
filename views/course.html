@@ -6,64 +6,67 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Universidad Latina de Costa Rica</title>
     <link rel="stylesheet" href="./css/main.css">
+    <link rel="stylesheet" href="./css/course.css">
     <script type="text/javascript" src="js/isAuthenticated.js"></script>
     <script type="text/javascript" src="js/course.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" />
 </head>
 
 <body>
     <header>
-        <img src="./img/logo_ulatina.png">
+        <nav class="main-nav">
+            <input type="checkbox" id="check" />
+            <label for="check" class="menu-btn">
+                <i class="fas fa-bars"></i>
+            </label>
+            <img class="logo" src="./img/logo_ulatina.png">
+            <ul class="navlinks">
+                <li><a href="./dashboard.html">Inicio</a></li>
+                <li><a href="./course.html" class="choose">Cursos</a></li>
+                <li><a href="./professor.html">Profesor</a></li>
+                <li><a href="./subject.html">Materias</a></li>
+                <li><a href="./notification.html">Notificaciones</a></li>
+            </ul>
+        </nav>
     </header>
-    <nav>
-        <a href="./dashboard.html">
-            <button >Inicio</button>
-        </a>
-        <a href="./course.html">
-            <button style="background-color: hsl(78, 100%, 42%);">Cursos</button>
-        </a>
-        <a href="./professor.html">
-            <button>Profesores</button>
-        </a>
-        <a href="./subject.html">
-            <button>Materias</button>
-        </a>
-        <a href="./notification.html">
-            <button>Notificaciones</button>
-        </a>
-    </nav>
 
-    <section>
-
+    <div class="container">
         <form onsubmit="createCourse(); return false">
-            <label for="quarter">Seleccione Cuatrimestre</label>
-            <input type="number" name="quarter" id="quarter" min="1" max="3" required>
-            <script>getQuarter()</script>
-            <label for="year">Seleccione año</label>
-            <input type="number" name="year" id="year" min="1900" max="2099" step="1" required>
-            <script>getYear()</script>
-            <label for="schedule">Seleccione Horario</label>
-            <input type="time" name="schedule" id="schedule" value="17:00" required>
-            <label for="professor">Seleccione Profesor</label>
-            <select id="professor" required>
-                <script>getProfessors()</script>
-            </select>
-            <label for="subject">Seleccione Materia</label>
-            <select id="subject" required>
-                <script>getSubjects()</script>
-            </select>
-            <label for="campus">Seleccione Sede</label>
-            <select id="campus" required>
-                <script>getCampuses()</script>
-            </select>
-            <label for="studentsApproved">Cantidad de estudiantes aprobados</label>
-            <input name="studentsApproved" id="approved" type="number" min="0" placeholder="Cantidad" required>
-            <label for="studentsFailed">Cantidad de estudiantes reprobados</label>
-            <input name="studentsFailed" id="failed" type="number" min="0" placeholder="Cantidad" required>
-            <label for="studentsDropped">Cantidad de estudiantes abandonaron</label>
-            <input name="studentsDropped" id="dropped" type="number" min="0" placeholder="Cantidad" required>
-            <input type="submit" value="Crear registro">
+            <div class="top">
+                <label for="quarter">Seleccione Cuatrimestre</label>
+                <input type="number" name="quarter" id="quarter" min="1" max="3" required>
+                <script>getQuarter()</script>
+                <label for="year">Seleccione año</label>
+                <input type="number" name="year" id="year" min="1900" max="2099" step="1" required>
+                <script>getYear()</script>
+                <label for="schedule">Seleccione Horario</label>
+                <input type="time" name="schedule" id="schedule" value="17:00" required>
+                <label for="professor">Seleccione Profesor</label>
+                <select id="professor" required>
+                    <script>getProfessors()</script>
+                </select>
+                <label for="subject">Seleccione Materia</label>
+                <select id="subject" required>
+                    <script>getSubjects()</script>
+                </select>
+            </div>
+            <div class="middle">
+                <label for="campus">Seleccione Sede</label>
+                <select id="campus" required>
+                    <script>getCampuses()</script>
+                </select>
+                <label for="studentsApproved">Cantidad de estudiantes aprobados</label>
+                <input name="studentsApproved" id="approved" type="number" min="0" placeholder="Cantidad" required>
+                <label for="studentsFailed">Cantidad de estudiantes reprobados</label>
+                <input name="studentsFailed" id="failed" type="number" min="0" placeholder="Cantidad" required>
+            </div>
+            <div class="bottom">
+                <label for="studentsDropped">Cantidad de estudiantes abandonaron</label>
+                <input name="studentsDropped" id="dropped" type="number" min="0" placeholder="Cantidad" required>
+                <input type="submit" value="Crear registro">
+            </div>
         </form>
-    </section>
+    </div>
 </body>
 
 </html>

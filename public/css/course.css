@@ -1,0 +1,20 @@
+.container form label{
+    margin-left:10px;
+    padding:5px;
+    border-radius:2px;
+  }
+
+  .container form .top{
+    padding-bottom: 10px;
+    margin-top: 10px;
+  }
+  .container form .middle{
+    padding-bottom: 10px;
+    margin-top: 10px;
+  }
+  .container form .bottom{
+    margin-bottom: 10px;
+    margin-top: 10px;
+  }
+
+  

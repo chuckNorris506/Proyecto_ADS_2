@@ -119,7 +119,7 @@ const createChart = async (mostRecent, average, option) => {
         ]);
 
         // Optional; add a title and set the width and height of the chart
-        var options = { 'title': option, 'width': 550, 'height': 400, is3D: true, slices: {1: {offset: 0.1}} };
+        var options = { 'title': option, 'width': 400, 'height': 400, is3D: true, slices: {1: {offset: 0.1}} };
 
         // Display the chart inside the <div> element with id="piechart"
         var chart = new google.visualization.PieChart(document.getElementById(option));

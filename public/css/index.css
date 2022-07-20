@@ -25,4 +25,13 @@ section a:hover {
 div {
     display: grid;
     grid-template-columns: 50% 50%;
-   }
+}
+
+.btnLogin button{
+  padding: 10px;
+  margin: 10px;
+}
+
+img{
+  width: 20%;
+}

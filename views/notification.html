@@ -8,33 +8,30 @@
     <link rel="stylesheet" href="./css/main.css">
     <script type="text/javascript" src="js/isAuthenticated.js"></script>
     <script type="text/javascript" src="js/notification.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" />
 </head>
 
 <body>
     <header>
-        <img src="./img/logo_ulatina.png">
+        <nav class="main-nav">
+            <input type="checkbox" id="check" />
+            <label for="check" class="menu-btn">
+                <i class="fas fa-bars"></i>
+            </label>
+            <img class="logo" src="./img/logo_ulatina.png">
+            <ul class="navlinks">
+                <li><a href="./dashboard.html" >Inicio</a></li>
+                <li><a href="./course.html">Cursos</a></li>
+                <li><a href="./professor.html">Profesor</a></li>
+                <li><a href="./subject.html">Materias</a></li>
+                <li><a href="./notification.html" class="choose">Notificaciones</a></li>
+            </ul>
+        </nav>
     </header>
-    <nav>
-        <a href="./dashboard.html">
-            <button >Inicio</button>
-        </a>
-        <a href="./course.html">
-            <button>Cursos</button>
-        </a>
-        <a href="./professor.html">
-            <button>Profesores</button>
-        </a>
-        <a href="./subject.html">
-            <button>Materias</button>
-        </a>
-        <a href="./notification.html">
-            <button style="background-color: hsl(78, 100%, 42%);">Notificaciones</button>
-        </a>
-    </nav>
-    <section>
+    <div class="container">
         <script>getAlerts()</script>
         <p id="alerts"></p>
-    </section>
+    </div>
 </body>
 
 </html>
