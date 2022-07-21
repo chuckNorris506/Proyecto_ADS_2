@@ -10,6 +10,10 @@
     <script>checkAuthentication()</script>
     <script type="text/javascript" src="js/user.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 </head>
 
 <body>
@@ -43,6 +47,42 @@
             <input id="password2" type="password" placeholder="Confirmar contraseña" maxlength="45" required>
             <input type="submit" value="Crear usuario">
         </form>
+    </div>
+    <div class="container">
+        <div class="table-responsive">
+            <div class="table-wrapper">
+                <div class="table-title">
+                    <div class="row">
+                        <div class="col-xs-6">
+                            <h2>Usuarios</h2>
+                        </div>
+                    </div>
+                </div>
+                <table class="table table-striped table-hover">
+                    <thead>
+                        <tr>
+                            <th>Usuario</th>
+                            <th>Correo</th>
+                            <th>Contraseña</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td style="width: 216px;">Thomas Hardy</td>
+                            <td style="width: 216px;">thomashardy@mail.com</td>
+                            <td style="width: 216px;">********</td>
+                            <td>
+                                <a href="#" class="edit" data-toggle="modal"><i class="material-icons"
+                                        data-toggle="tooltip" title="Edit">&#xE254;</i></a>
+                                <a href="#" class="delete" data-toggle="modal"><i class="material-icons"
+                                        data-toggle="tooltip" title="Delete">&#xE872;</i></a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </div>
 </body>
 
