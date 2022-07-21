@@ -86,6 +86,25 @@ class Course {
             connection.end()
         })
     }
+
+    getAllCourses = async () => {
+        return new Promise((resolve, reject) => {
+            const connection = database.getConnnection();
+            connection.execute('CALL get_all_courses()',
+                (err, results, fields) => {
+                    if (err) {
+                        reject()
+                    }
+                    else {
+                        results.pop()
+                        if (results[0].length < 1) {
+                            reject()
+                        }
+                        resolve(results[0])
+                    }
+                })
+        })
+    }
 }
 
 module.exports = Course

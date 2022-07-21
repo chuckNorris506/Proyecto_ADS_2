@@ -135,3 +135,49 @@ const getProfessors = async () => {
         })
         .catch(err => alert(err))
 }
+
+const getCourse = async () => {
+    const options = {
+        method: 'GET',
+        headers: {
+            'Authorization': sessionStorage.getItem('jwt')
+        }
+    }
+
+    fetch(`api/v1/course`, options)
+        .then(res => {
+            if (res.status === 200) {
+                res.json().then(res => {
+                    let options = ""
+                    res.forEach(option => {
+                        options += 
+                        `<tr>
+                        <td >${option.c_quarter}</td>
+                        <td >${option.c_year}</td>
+                        <td >${option.c_schedule}</td>
+                        <td >${option.p_fullName}</td>
+                        <td >${option.s_name}</td>
+                        <td >${option.cp_Name}</td>
+                        <td >${option.c_students_approved}</td>
+                        <td >${option.c_students_failed}</td>
+                        <td >${option.c_students_dropped}</td>
+                        <td>
+                            <a href="#" class="edit" data-toggle="modal"><i class="material-icons"
+                                    data-toggle="tooltip" title="Edit">&#xE254;</i></a>
+                            <a href="#" class="delete" data-toggle="modal"><i class="material-icons"
+                                    data-toggle="tooltip" title="Delete">&#xE872;</i></a>
+                        </td>
+                    </tr>`
+                    })
+                    console.log(options);
+                    document.getElementById('courseTable').innerHTML = options
+                })
+            }
+            else if (res.status === 404) {
+                res.json().then(res => {
+                    document.getElementById('courseTable').innerHTML = `<option>${res.msg}</option>`
+                })
+            }
+        })
+        .catch(err => alert(err))
+}

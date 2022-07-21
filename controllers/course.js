@@ -84,6 +84,16 @@ const deleteCourse = (req, res) => {
         })
 }
 
+const getAllCourses = async (req, res) => {
+    const course = new Course()
+    course.getAllCourses().then((data) => {
+        res.status(200).json(data)
+    }).catch(() => {
+        res.status(404).json({ msg: 'No hay registros' })
+    })
+
+}
 
 
-module.exports = { createCourse, getCourse, updateCourse, deleteCourse }
+
+module.exports = { createCourse, getCourse, updateCourse, deleteCourse, getAllCourses}

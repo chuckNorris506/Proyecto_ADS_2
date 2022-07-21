@@ -82,4 +82,14 @@ const deleteUser = async (req, res) => {
         })
 }
 
-module.exports = { login, register, updateUser, deleteUser };
+const getUsers = async (req, res) => {
+    const user = new User()
+    user.getUsers().then((data) => {
+        res.status(200).json(data)
+    }).catch(() => {
+        res.status(404).json({ msg: 'No hay registros' })
+    })
+
+}
+
+module.exports = { login, register, updateUser, deleteUser, getUsers };
