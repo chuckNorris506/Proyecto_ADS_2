@@ -1,4 +1,4 @@
-const Alert = require('../models/Alert.js');
+const Alert = require('../models/Alert.js')
 
 const getAlerts = (req, res) => {
     const alert = new Alert()
@@ -7,6 +7,6 @@ const getAlerts = (req, res) => {
     }).catch(() => {
         res.status(404).json({ msg: 'No hay registros' })
     })
-};
+}
 
-module.exports = { getAlerts };
+module.exports = { getAlerts }

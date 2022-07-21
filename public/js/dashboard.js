@@ -58,9 +58,9 @@ const getSubjects = async () => {
 }
 
 const getChartData = async () => {
-    getData('approved');
-    getData('failed');
-    getData('dropped');
+    getData('approved')
+    getData('failed')
+    getData('dropped')
 }
 
 const getData = async (option) => {
@@ -107,8 +107,8 @@ const getData = async (option) => {
 }
 
 const createChart = async (mostRecent, average, option) => {
-    google.charts.load('current', { 'packages': ['corechart'] });
-    google.charts.setOnLoadCallback(drawChart);
+    google.charts.load('current', { 'packages': ['corechart'] })
+    google.charts.setOnLoadCallback(drawChart)
 
 
     function drawChart() {
@@ -118,25 +118,25 @@ const createChart = async (mostRecent, average, option) => {
             ['Promedio', average]
         ])
 
-        let title;
+        let title
 
         switch (option) {
             case 'approved':
                 title = 'Aprobados'
-                break;
+                break
             case 'failed':
                 title = 'Reprobados'
-                break;
+                break
             case 'dropped':
                 title = 'Abandonaron'
-                break;
-        };
+                break
+        }
 
-        var options = { 'title': title, 'width': 400, 'height': 400, is3D: true, slices: { 1: { offset: 0.1 } } };
+        var options = { 'title': title, 'width': 400, 'height': 400, is3D: true, slices: { 1: { offset: 0.1 } } }
 
 
-        var chart = new google.visualization.PieChart(document.getElementById(option));
-        chart.draw(data, options);
+        var chart = new google.visualization.PieChart(document.getElementById(option))
+        chart.draw(data, options)
     }
 }
 

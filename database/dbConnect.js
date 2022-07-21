@@ -1,4 +1,4 @@
-const mysql = require('mysql2');
+const mysql = require('mysql2')
 
 const getConnnection = () => {
     const connection = mysql.createConnection({
@@ -8,7 +8,7 @@ const getConnnection = () => {
         database: process.env.DB_DATABASE
     })
 
-    return connection;
-};
+    return connection
+}
 
-module.exports = { getConnnection };
+module.exports = { getConnnection }

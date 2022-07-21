@@ -1,8 +1,7 @@
-const express = require('express');
-const router = express.Router();
-const { getAlerts } = require('../controllers/alert');
+const express = require('express')
+const router = express.Router()
+const { getAlerts } = require('../controllers/alert')
 
-router.get('/', getAlerts);
+router.get('/', getAlerts)
 
-
-module.exports = router;
+module.exports = router

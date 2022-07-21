@@ -1,4 +1,10 @@
 const login = async () => {
+
+    if (!(document.getElementById('username').value).includes('@ulatina.net')) {
+        alert('Por favor brindar email válido')
+        return
+    }
+
     const json = {
         username: document.getElementById('username').value,
         password: document.getElementById('password').value
@@ -12,7 +18,7 @@ const login = async () => {
         body: JSON.stringify(json)
     }
 
-    fetch('/api/v1/authentication/login', options)
+    fetch('/api/v1/user/login', options)
         .then(res => {
 
             if (res.status === 200) {

@@ -7,7 +7,8 @@
     <title>Universidad Latina de Costa Rica</title>
     <link rel="stylesheet" href="./css/main.css">
     <link rel="stylesheet" href="./css/course.css">
-    <script type="text/javascript" src="js/isAuthenticated.js"></script>
+    <script type="text/javascript" src="js/authentication.js"></script>
+    <script>checkAuthentication()</script>
     <script type="text/javascript" src="js/course.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" />
 </head>
@@ -23,9 +24,11 @@
             <ul class="navlinks">
                 <li><a href="./dashboard.html">Inicio</a></li>
                 <li><a href="./course.html" class="choose">Cursos</a></li>
-                <li><a href="./professor.html">Profesor</a></li>
+                <li><a href="./professor.html">Profesores</a></li>
                 <li><a href="./subject.html">Materias</a></li>
                 <li><a href="./notification.html">Notificaciones</a></li>
+                <li><a href="./user.html">Usuarios</a></li>
+                <li><a href="#" onclick="signOut()">Cerrar sesión</a></li>
             </ul>
         </nav>
     </header>

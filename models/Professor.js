@@ -1,12 +1,12 @@
-const database = require('../database/dbConnect');
+const database = require('../database/dbConnect')
 
 class Professor {
 
-    id;
-    fullName;
-    identification;
-    createdBy;
-    status;
+    id
+    fullName
+    identification
+    createdBy
+    status
 
     createProfessor = async (fullName, identification, id) => {
         return new Promise((resolve, reject) => {
@@ -24,7 +24,7 @@ class Professor {
                 connection.end()
         })
 
-    };
+    }
 
     getProfessors = async () => {
         return new Promise((resolve, reject) => {
@@ -44,7 +44,7 @@ class Professor {
                 })
                 connection.end()
         })
-    };
+    }
 
     updateProfessor = async (id, fullname, identification) => {
         return new Promise((resolve, reject) => {
@@ -61,7 +61,7 @@ class Professor {
                 })
                 connection.end()
         })
-    };
+    }
 
     deleteProfessor = async (id) => {
         return new Promise((resolve, reject) => {
@@ -78,7 +78,7 @@ class Professor {
                 })
                 connection.end()
         })
-    };
-};
+    }
+}
 
-module.exports = Professor;
+module.exports = Professor

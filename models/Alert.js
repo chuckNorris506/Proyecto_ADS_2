@@ -1,14 +1,14 @@
-const database = require('../database/dbConnect');
+const database = require('../database/dbConnect')
 
 class Alert {
-    id;
-    courseVarianceApproved;
-    courseVarianceFailed;
-    courseVarianceDropped;
+    id
+    courseVarianceApproved
+    courseVarianceFailed
+    courseVarianceDropped
 
     getAlerts = async () => {
         return new Promise((resolve, reject) => {
-            const connection = database.getConnnection();
+            const connection = database.getConnnection()
             connection.execute('CALL get_alerts()',
                 (err, results, fields) => {
                     if (err) {
@@ -24,8 +24,8 @@ class Alert {
                 })
                 connection.end()
         })
-    };
+    }
 
-};
+}
 
-module.exports = Alert;
+module.exports = Alert

@@ -188,10 +188,11 @@ CREATE TABLE `users` (
   `u_fullName` varchar(45) NOT NULL,
   `u_username` varchar(45) NOT NULL,
   `u_password` varchar(45) NOT NULL,
+  `u_status` tinyint NOT NULL DEFAULT '1',
   PRIMARY KEY (`u_id`),
   UNIQUE KEY `username_UNIQUE` (`u_username`),
   UNIQUE KEY `user_id_UNIQUE` (`u_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -200,7 +201,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (1,'Administrador','admin@ulatina.net','21232f297a57a5a743894a0e4a801fc3');
+INSERT INTO `users` VALUES (1,'Administrador','admin@ulatina.net','21232f297a57a5a743894a0e4a801fc3',1),(2,'Cristian','abc@abc.com','21232f297a57a5a743894a0e4a801fc3',1),(3,'Juan','por','123',0),(6,'d','d','8277e0910d750195b448797616e091ad',1),(7,'a','a','0cc175b9c0f1b6a831c399e269772661',1),(10,'s','s','03c7c0ace395d80182db07ae2c30f034',1),(19,'abc','abc','900150983cd24fb0d6963f7d28e17f72',0);
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -381,6 +382,27 @@ DELIMITER ;
 /*!50003 SET character_set_client  = @saved_cs_client */ ;
 /*!50003 SET character_set_results = @saved_cs_results */ ;
 /*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `delete_user` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `delete_user`(par_u_id INT)
+BEGIN
+UPDATE users
+SET u_status = 0
+WHERE u_id = par_u_id;
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
 /*!50003 DROP PROCEDURE IF EXISTS `get_alerts` */;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
@@ -531,7 +553,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `register`(username VARCHAR(45) , passwd VARCHAR(45) , fullName VARCHAR(45) )
+CREATE DEFINER=`root`@`localhost` PROCEDURE `register`(fullName VARCHAR(45) ,username VARCHAR(45) , passwd VARCHAR(45))
 BEGIN
 SET @passwd = md5(passwd);
 INSERT INTO users (u_username, u_password, u_fullName)
@@ -607,6 +629,27 @@ DELIMITER ;
 /*!50003 SET character_set_client  = @saved_cs_client */ ;
 /*!50003 SET character_set_results = @saved_cs_results */ ;
 /*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `update_user` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `update_user`(par_u_id INT, par_u_fullName VARCHAR(45), par_u_username VARCHAR(45), par_u_password VARCHAR(45))
+BEGIN
+UPDATE users 
+SET u_fullName=par_u_fullName, u_username=par_u_username, u_password=par_u_password
+WHERE u_id = par_u_id;
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -617,4 +660,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-07-19 23:13:18
+-- Dump completed on 2022-07-20 19:37:55

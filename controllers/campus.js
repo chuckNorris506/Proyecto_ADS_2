@@ -1,4 +1,4 @@
-const Campus = require('../models/Campus');
+const Campus = require('../models/Campus')
 
 const getCampuses = (req, res) => {
     const campus = new Campus()
@@ -7,6 +7,6 @@ const getCampuses = (req, res) => {
     }).catch(() => {
         res.status(404).json({ msg: 'No hay registros' })
     })
-};
+}
 
-module.exports = { getCampuses };
+module.exports = { getCampuses }

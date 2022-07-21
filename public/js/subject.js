@@ -19,8 +19,8 @@ const createSubject = async () => {
             if (res.status === 201) {
                 res.json().then(res => {
                     alert(res.msg)
-                    document.getElementById('name').value = " "
-                    document.getElementById('code').value = " "
+                    document.getElementById('name').value = ""
+                    document.getElementById('code').value = ""
                 })
             }
             else if (res.status === 409) {

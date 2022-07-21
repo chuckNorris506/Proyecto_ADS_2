@@ -6,11 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Universidad Latina de Costa Rica</title>
     <link rel="stylesheet" href="./css/main.css">
-    <link rel="stylesheet" href="./css/dashboard.css">
     <script type="text/javascript" src="js/authentication.js"></script>
     <script>checkAuthentication()</script>
-    <script type="text/javascript" src="js/dashboard.js"></script>
-    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript" src="js/user.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" />
 </head>
 
@@ -23,39 +21,29 @@
             </label>
             <img class="logo" src="./img/logo_ulatina.png">
             <ul class="navlinks">
-                <li><a href="./dashboard.html" class="choose">Inicio</a></li>
+                <li><a href="./dashboard.html" >Inicio</a></li>
                 <li><a href="./course.html">Cursos</a></li>
                 <li><a href="./professor.html">Profesores</a></li>
                 <li><a href="./subject.html">Materias</a></li>
                 <li><a href="./notification.html">Notificaciones</a></li>
-                <li><a href="./user.html">Usuarios</a></li>
+                <li><a href="./user.html" class="choose">Usuarios</a></li>
                 <li><a href="#" onclick="signOut()">Cerrar sesión</a></li>
             </ul>
         </nav>
     </header>
     <div class="container">
-        <label for="campus">Sede</label>
-        <select id="campus" name="campus" onchange="getChartData()">
-            <script>getCampuses()</script>
-        </select>
-
-        <label for="subject">Materia</label>
-        <select id="subject" name="subject" onchange="getChartData()">
-            <script>getSubjects()</script>
-        </select>
-    </div>
-    <div class="containerCharts">
-        <h2>Registros</h2>
-        <section id="charts">
-            <div id="approved">
-            </div>
-            <div id="failed">
-            </div>
-            <div id="dropped">
-            </div>
-        </section>
+        <form onsubmit="register(); return false">
+            <label for="fullName">Nombre de usuario</label>
+            <input id="fullName" type="text" placeholder="Nombre completo" maxlength="45" required>
+            <label for="username">Ingrese correo electrónico</label>
+            <input id="username" type="email" placeholder="Correo electrónico" maxlength="45" required>
+            <label for="password">Ingrese contraseña</label>
+            <input id="password" type="password" placeholder="Contraseña" maxlength="45" required>
+            <label for="password2">Confirmar contraseña</label>
+            <input id="password2" type="password" placeholder="Confirmar contraseña" maxlength="45" required>
+            <input type="submit" value="Crear usuario">
+        </form>
     </div>
 </body>
-
 
 </html>

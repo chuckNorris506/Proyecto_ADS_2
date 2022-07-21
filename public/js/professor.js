@@ -18,8 +18,8 @@ const createProfessor = async () => {
             if (res.status === 201) {
                 res.json().then(res => {
                     alert(res.msg)
-                    document.getElementById('fullname').value = " "
-                    document.getElementById('identification').value = " "
+                    document.getElementById('fullname').value = ""
+                    document.getElementById('identification').value = ""
                 })
             }
             else if (res.status === 409) {

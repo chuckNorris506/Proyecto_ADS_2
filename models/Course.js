@@ -1,24 +1,24 @@
-const database = require('../database/dbConnect');
+const database = require('../database/dbConnect')
 
 class Course {
 
-    id;
-    subject;
-    professor;
-    schedule;
-    quarter;
-    year;
-    studentsApproved;
-    studentsFailed;
-    studentsDropped;
-    createdBy;
-    status;
+    id
+    subject
+    professor
+    schedule
+    quarter
+    year
+    studentsApproved
+    studentsFailed
+    studentsDropped
+    createdBy
+    status
 
-    createCourse = async (subject, professor, campus ,schedule, quarter, year, approved, failed, dropped, id) => {
+    createCourse = async (subject, professor, campus, schedule, quarter, year, approved, failed, dropped, id) => {
         return new Promise((resolve, reject) => {
             const connection = database.getConnnection();
             connection.execute('CALL create_course(?,?,?,?,?,?,?,?,?,?)',
-                [subject, professor, campus ,schedule, quarter, year, approved, failed, dropped, id],
+                [subject, professor, campus, schedule, quarter, year, approved, failed, dropped, id],
                 (err, results, fields) => {
                     if (err) {
                         reject()
@@ -27,10 +27,10 @@ class Course {
                         resolve()
                     }
                 })
-                connection.end()
+            connection.end()
         })
 
-    };
+    }
 
     getCourse = async (id, campus, option) => {
         return new Promise((resolve, reject) => {
@@ -49,9 +49,9 @@ class Course {
                         resolve(results[0])
                     }
                 })
-                connection.end()
+            connection.end()
         })
-    };
+    }
 
     updateCourse = async (id, subject, campus, professor, schedule, quarter, year, approved, failed, dropped) => {
         return new Promise((resolve, reject) => {
@@ -66,9 +66,9 @@ class Course {
                         resolve()
                     }
                 })
-                connection.end()
+            connection.end()
         })
-    };
+    }
 
     deleteCourse = async (id) => {
         return new Promise((resolve, reject) => {
@@ -83,9 +83,9 @@ class Course {
                         resolve()
                     }
                 })
-                connection.end()
+            connection.end()
         })
-    };
-};
+    }
+}
 
-module.exports = Course;
+module.exports = Course

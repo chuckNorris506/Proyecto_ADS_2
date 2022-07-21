@@ -1,4 +1,4 @@
-const Course = require('../models/Course.js');
+const Course = require('../models/Course.js')
 
 const createCourse = async (req, res) => {
 
@@ -20,7 +20,7 @@ const createCourse = async (req, res) => {
         }).catch(() => {
             res.status(409).json({ msg: 'Curso ya existe' })
         })
-};
+}
 
 const getCourse = async (req, res) => {
     const { id } = req.params
@@ -49,7 +49,7 @@ const getCourse = async (req, res) => {
         .catch(() => {
             res.status(404).json({ msg: 'No hay datos' })
         })
-};
+}
 
 const updateCourse = (req, res) => {
     const { id } = req.params
@@ -70,7 +70,7 @@ const updateCourse = (req, res) => {
         }).catch(() => {
             return res.status(400).json({ msg: 'Error actualizando curso' })
         })
-};
+}
 
 const deleteCourse = (req, res) => {
     const { id } = req.params
@@ -82,8 +82,8 @@ const deleteCourse = (req, res) => {
         .catch(() => {
             return res.status(400).json({ msg: 'Error eliminando curso' })
         })
-};
+}
 
 
 
-module.exports = { createCourse, getCourse, updateCourse, deleteCourse };
+module.exports = { createCourse, getCourse, updateCourse, deleteCourse }

@@ -1,12 +1,12 @@
-const database = require('../database/dbConnect');
+const database = require('../database/dbConnect')
 
 class Campus {
-    id;
-    name;
+    id
+    name
 
     getCampuses = async () => {
         return new Promise((resolve, reject) => {
-            const connection = database.getConnnection();
+            const connection = database.getConnnection()
             connection.execute('CALL get_campuses()',
                 (err, results, fields) => {
                     if (err) {
@@ -22,8 +22,8 @@ class Campus {
                 })
                 connection.end()
         })
-    };
+    }
 
-};
+}
 
-module.exports = Campus;
+module.exports = Campus

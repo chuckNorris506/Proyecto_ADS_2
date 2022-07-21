@@ -1,12 +1,12 @@
-const database = require('../database/dbConnect');
+const database = require('../database/dbConnect')
 
 class Subject {
 
-    id;
-    name;
-    code;
-    createdBy;
-    status;
+    id
+    name
+    code
+    createdBy
+    status
 
     createSubject = async (name, code, id) => {
         return new Promise((resolve, reject) => {
@@ -23,7 +23,7 @@ class Subject {
                 })
         })
 
-    };
+    }
 
     getSubjects = async () => {
         return new Promise((resolve, reject) => {
@@ -42,7 +42,7 @@ class Subject {
                     }
                 })
         })
-    };
+    }
 
     updateSubject = async (id, name, code) => {
         return new Promise((resolve, reject) => {
@@ -58,7 +58,7 @@ class Subject {
                     }
                 })
         })
-    };
+    }
 
     deleteSubject = async (id) => {
         return new Promise((resolve, reject) => {
@@ -74,8 +74,8 @@ class Subject {
                     }
                 })
         })
-    };
+    }
 
-};
+}
 
-module.exports = Subject;
+module.exports = Subject
