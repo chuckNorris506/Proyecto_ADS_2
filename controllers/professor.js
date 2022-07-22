@@ -14,7 +14,7 @@ const createProfessor = async (req, res) => {
 
     const professor = new Professor()
 
-    professor.createProfessor(fullname.trim(), identification.trim(), req.user.id.id.trim())
+    professor.createProfessor(fullname.trim(), identification.trim(), req.user.id.id)
         .then(() => {
             res.status(201).json({ msg: 'Profesor creado' })
         })

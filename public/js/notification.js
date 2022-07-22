@@ -9,15 +9,17 @@ const getAlerts = () => {
         .then(res => {
             if (res.status === 200) {
                 res.json().then(res => {
-                    let data = '<ul>'
+                    let data = ''
                     res.forEach(option => {
                         data += `<li value=${option.a_id}>
-                            Variación aprobados:${option.courseVarianceApproved}, 
-                            Variación reprobados: ${option.courseVarianceFailed}, 
-                            Variación abandonaron:${option.courseVarianceDropped}
+                            Sede: ${option.cp_name},
+                            Materia: ${option.s_name} ${option.s_code},
+                            Identificador de curso: ${option.c_id},<br>                  
+                            Aprobados: ${option.a_courseVarianceApproved}%, 
+                            Reprobados: ${option.a_courseVarianceFailed}%, 
+                            Abandonaron: ${option.a_courseVarianceDropped}%
                             </li>`
                     })
-                    data += '</ul>'
                     document.getElementById('alerts').innerHTML = data
                 })
             }

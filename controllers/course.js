@@ -15,7 +15,7 @@ const createCourse = async (req, res) => {
     const course = new Course()
 
     course.createCourse(subject.trim(), professor.trim(), campus.trim(), schedule.trim(), quarter.trim(), year.trim(), approved.trim(),
-        failed.trim(), dropped.trim(), req.user.id.id.trim())
+        failed.trim(), dropped.trim(), req.user.id.id)
         .then(() => {
             res.status(201).json({ msg: 'Curso creado' })
         }).catch(() => {

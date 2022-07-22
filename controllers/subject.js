@@ -14,7 +14,7 @@ const createSubject = async (req, res) => {
 
     const subject = new Subject()
 
-    subject.createSubject(name.trim(), code.trim(), req.user.id.id.trim())
+    subject.createSubject(name.trim(), code.trim(), req.user.id.id)
         .then(() => {
             res.status(201).json({ msg: 'Materia creada' })
         })

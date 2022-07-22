@@ -5,7 +5,13 @@ const checkAuthentication = () => {
     }
 }
 
+const checkAuthenticationLogin = () => {
+    if (sessionStorage.getItem('jwt')) {
+        window.location.assign('/dashboard.html')
+    }
+}
+
 const signOut = async () => {
     sessionStorage.clear()
-    window.location.assign('/')
+    window.location.replace('/')
 }

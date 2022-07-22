@@ -1,0 +1,7 @@
+#alerts li {
+    border-style: solid;
+    border-radius: 10px;
+    list-style: none;
+    padding: 1%;
+    margin: 1%;
+}

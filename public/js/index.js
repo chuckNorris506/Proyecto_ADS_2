@@ -26,7 +26,7 @@ const login = async () => {
                     if (res) {
                         const token = res.token
                         sessionStorage.setItem("jwt", 'Bearer ' + token)
-                        window.location.assign('dashboard.html')
+                        window.location.replace('dashboard.html')
                     }
                 })
             }
