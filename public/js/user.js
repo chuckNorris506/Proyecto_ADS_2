@@ -1,14 +1,18 @@
 const register = async () => {
 
-    if (document.getElementById('password').value != document.getElementById('password2').value) {
-        alert('Contraseñas no coinciden')
+    if (!/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g.test(document.getElementById('username').value) ||
+        !document.getElementById('username').value.endsWith('ulatina.net')) {
+        document.getElementById('msg').style.color = 'red'
+        document.getElementById('msg').innerHTML = 'Por favor brindar email válido'
         return
     }
 
-    if (!(document.getElementById('username').value).includes('@ulatina.net')) {
-        alert('Por favor brindar email válido')
+    if (document.getElementById('password').value != document.getElementById('password2').value) {
+        document.getElementById('msg').style.color = 'red'
+        document.getElementById('msg').innerHTML = 'Contraseñas no coinciden'
         return
     }
+
 
     const json = {
         fullName: document.getElementById('fullName').value,
@@ -29,16 +33,19 @@ const register = async () => {
         .then(res => {
             if (res.status === 201) {
                 res.json().then(res => {
+                    getUsers()
+                    document.getElementById('msg').style.color = 'green'
+                    document.getElementById('msg').innerHTML = res.msg
                     document.getElementById('fullName').value = ""
                     document.getElementById('username').value = ""
                     document.getElementById('password').value = ""
                     document.getElementById('password2').value = ""
-                    alert(res.msg)
                 })
             }
             else {
                 res.json().then(res => {
-                    alert(res.msg)
+                    document.getElementById('msg').style.color = 'red'
+                    document.getElementById('msg').innerHTML = res.msg
                 })
             }
         })
@@ -59,8 +66,8 @@ const getUsers = async () => {
                 res.json().then(res => {
                     let options = ""
                     res.forEach(option => {
-                        options += 
-                        `<tr>
+                        options +=
+                            `<tr>
                         <td >${option.u_fullName}</td>
                         <td >${option.u_username}</td>
                         <td >${option.u_password}</td>

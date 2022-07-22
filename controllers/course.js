@@ -54,7 +54,7 @@ const getCourse = async (req, res) => {
             res.status(200).json(data)
         })
         .catch(() => {
-            res.status(404).json({ msg: 'No hay datos' })
+            res.status(404).json({ msg: 'No hay registros' })
         })
 }
 

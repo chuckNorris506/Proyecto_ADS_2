@@ -37,12 +37,23 @@ const createCourse = async () => {
         .then(res => {
             if (res.status === 201) {
                 res.json().then(res => {
-                    alert(res.msg)
+                    getQuarter()
+                    getYear()
+                    getCampuses()
+                    getProfessors()
+                    getSubjects()
+                    getCourse()
+                    document.getElementById('msg').style.color = 'green'
+                    document.getElementById('msg').innerHTML = res.msg
+                    document.getElementById('approved').value = ""
+                    document.getElementById('failed').value = ""
+                    document.getElementById('dropped').value = ""
                 })
             }
             else if (res.status === 409) {
                 res.json().then(res => {
-                    alert(res.msg)
+                    document.getElementById('msg').style.color = 'red'
+                    document.getElementById('msg').innerHTML = res.msg
                 })
             }
         })

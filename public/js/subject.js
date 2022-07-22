@@ -18,14 +18,17 @@ const createSubject = async () => {
         .then(res => {
             if (res.status === 201) {
                 res.json().then(res => {
-                    alert(res.msg)
+                    getSubjects()
+                    document.getElementById('msg').style.color = 'green'
+                    document.getElementById('msg').innerHTML = res.msg
                     document.getElementById('name').value = ""
                     document.getElementById('code').value = ""
                 })
             }
             else if (res.status === 409) {
                 res.json().then(res => {
-                    alert(res.msg)
+                    document.getElementById('msg').style.color = 'red'
+                    document.getElementById('msg').innerHTML = res.msg                    
                 })
             }
         })

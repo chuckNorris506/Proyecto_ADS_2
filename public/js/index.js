@@ -1,7 +1,10 @@
 const login = async () => {
 
-    if (!(document.getElementById('username').value).includes('@ulatina.net')) {
-        alert('Por favor brindar email válido')
+    if (!/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g.test(document.getElementById('username').value) ||
+        !document.getElementById('username').value.endsWith('ulatina.net')) {
+        document.getElementById('username').style.borderColor = 'red'
+        document.getElementById('msg').style.color = 'red'
+        document.getElementById('msg').innerHTML = 'Por favor brindar email válido'
         return
     }
 
@@ -30,14 +33,12 @@ const login = async () => {
                     }
                 })
             }
-            else if (res.status === 400) {
-                res.json().then(res => {
-                    alert(res.msg)
-                })
-            }
             else if (res.status === 401) {
                 res.json().then(res => {
-                    alert(res.msg)
+                    document.getElementById('username').style.borderColor = 'red'
+                    document.getElementById('password').style.borderColor = 'red'
+                    document.getElementById('msg').style.color = 'red'
+                    document.getElementById('msg').innerHTML = res.msg
                 })
             }
 

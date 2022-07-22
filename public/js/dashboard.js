@@ -16,6 +16,7 @@ const getCampuses = async () => {
                         data += `<option value=${option.cp_id}> ${option.cp_name}</option>`
                     })
                     document.getElementById('campus').innerHTML = data
+                    getSubjects()
                 })
             }
             else if (res.status === 404) {
@@ -99,7 +100,9 @@ const getData = async (option) => {
             }
             else if (res.status === 404) {
                 res.json().then(res => {
-                    document.getElementById(`${option}`).innerHTML = res.msg
+                    if (option === 'dropped') {
+                        document.getElementById(`${option}`).innerHTML = res.msg
+                    }                    
                 })
             }
         })

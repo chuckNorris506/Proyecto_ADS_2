@@ -25,7 +25,7 @@ const getAlerts = () => {
             }
             else if (res.status === 404) {
                 res.json().then(res => {
-                    alert('No hay datos')
+                    document.getElementById('msg').innerHTML = res.msg
                 })
             }
         })

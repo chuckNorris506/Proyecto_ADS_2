@@ -17,14 +17,17 @@ const createProfessor = async () => {
         .then(res => {
             if (res.status === 201) {
                 res.json().then(res => {
-                    alert(res.msg)
+                    getProfessors()
+                    document.getElementById('msg').style.color = 'green'
+                    document.getElementById('msg').innerHTML = res.msg
                     document.getElementById('fullname').value = ""
                     document.getElementById('identification').value = ""
                 })
             }
             else if (res.status === 409) {
                 res.json().then(res => {
-                    alert(res.msg)
+                    document.getElementById('msg').style.color = 'red'
+                    document.getElementById('msg').innerHTML = res.msg
                 })
             }
         })
