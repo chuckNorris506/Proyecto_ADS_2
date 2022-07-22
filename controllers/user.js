@@ -8,7 +8,7 @@ const login = async (req, res) => {
         return res.status(400).json({ msg: 'Por favor brindar todos los valores' })
     }
 
-    if (!username.includes('@ulatina.net')) {
+    if (!/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g.test(username) || !username.endsWith('ulatina.net')) {
         return res.status(400).json({ msg: 'Por favor brindar email válido' })
     }
 
@@ -34,7 +34,7 @@ const register = async (req, res) => {
         return res.status(400).json({ msg: 'Por favor brindar todos los valores' })
     }
 
-    if (!username.includes('@ulatina.net')) {
+    if (!/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g.test(username) || !username.endsWith('ulatina.net')) {
         return res.status(400).json({ msg: 'Por favor brindar email válido' })
     }
 
@@ -62,7 +62,7 @@ const updateUser = async (req, res) => {
         return res.status(400).json({ msg: 'Por favor brindar todos los valores' })
     }
 
-    if (!username.includes('@ulatina.net')) {
+    if (!/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g.test(username) || !username.endsWith('ulatina.net')) {
         return res.status(400).json({ msg: 'Por favor brindar email válido' })
     }
 
