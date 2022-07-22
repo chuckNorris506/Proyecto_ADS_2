@@ -4,8 +4,12 @@ const login = async (req, res) => {
 
     const { username, password } = req.body
 
-    if (!(username || password)) {
+    if (!username || !password) {
         return res.status(400).json({ msg: 'Por favor brindar todos los valores' })
+    }
+
+    if (!username.includes('@ulatina.net')) {
+        return res.status(400).json({ msg: 'Por favor brindar email válido' })
     }
 
     if (username.length > 45 || password.length > 45) {
@@ -14,7 +18,7 @@ const login = async (req, res) => {
 
     const user = new User()
 
-    user.login(username, password)
+    user.login(username.trim(), password.trim())
         .then(jwt => {
             res.status(200).json({ token: jwt })
         }).catch(() => {
@@ -23,9 +27,10 @@ const login = async (req, res) => {
 };
 
 const register = async (req, res) => {
+
     const { fullName, username, password } = req.body
 
-    if (!(fullName || username || password)) {
+    if (!fullName || !username || !password) {
         return res.status(400).json({ msg: 'Por favor brindar todos los valores' })
     }
 
@@ -39,7 +44,7 @@ const register = async (req, res) => {
 
     const user = new User()
 
-    user.register(fullName, username, password)
+    user.register(fullName.trim(), username.trim(), password.trim())
         .then(() => {
             res.status(201).json({ msg: 'Usuario creado' })
         }).catch(() => {
@@ -49,11 +54,16 @@ const register = async (req, res) => {
 }
 
 const updateUser = async (req, res) => {
+
     const { id } = req.params
     const { fullName, username, password } = req.body
 
-    if (!(id || fullName || username || password)) {
+    if (!fullName || !username || !password) {
         return res.status(400).json({ msg: 'Por favor brindar todos los valores' })
+    }
+
+    if (!username.includes('@ulatina.net')) {
+        return res.status(400).json({ msg: 'Por favor brindar email válido' })
     }
 
     if (fullName.length > 45 || username.length > 45 || password.length > 45 || isNaN(id)) {
@@ -62,7 +72,7 @@ const updateUser = async (req, res) => {
 
     const user = new User()
 
-    user.updateUser(id, fullName, username, password)
+    user.updateUser(id.trim(), fullName.trim(), username.trim(), password.trim())
         .then(() => {
             res.status(200).json({ msg: 'Usuario actualizado' })
         }).catch(() => {
@@ -71,24 +81,38 @@ const updateUser = async (req, res) => {
 }
 
 const deleteUser = async (req, res) => {
+
     const { id } = req.params
 
+    if (!id) {
+        return res.status(400).json({ msg: 'Por favor brindar todos los valores' })
+    }
+
+    if (isNaN(id)) {
+        return res.status(400).json({ msg: 'Por favor brindar valores válidos' })
+    }
+
     const user = new User()
-    user.deleteUser(id).then(() => {
-        res.status(200).json({ msg: 'Usuario eliminado' })
-    })
+
+    user.deleteUser(id.trim())
+        .then(() => {
+            res.status(200).json({ msg: 'Usuario eliminado' })
+        })
         .catch(() => {
             return res.status(400).json({ msg: 'Error eliminando usuario' })
         })
 }
 
 const getUsers = async (req, res) => {
+
     const user = new User()
-    user.getUsers().then((data) => {
-        res.status(200).json(data)
-    }).catch(() => {
-        res.status(404).json({ msg: 'No hay registros' })
-    })
+
+    user.getUsers()
+        .then((data) => {
+            res.status(200).json(data)
+        }).catch(() => {
+            res.status(404).json({ msg: 'No hay registros' })
+        })
 
 }
 

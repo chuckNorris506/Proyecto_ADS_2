@@ -4,15 +4,17 @@ const createProfessor = async (req, res) => {
 
     const { fullname, identification } = req.body
 
-    if (!(fullname || identification)) {
+    if (!fullname || !identification) {
         return res.status(400).json({ msg: 'Por favor brindar todos los valores' })
     }
+
     if (fullname.length > 45 || identification.length > 45) {
         return res.status(400).json({ msg: 'Por favor brindar valores válidos' })
     }
 
     const professor = new Professor()
-    professor.createProfessor(fullname, identification, req.user.id.id)
+
+    professor.createProfessor(fullname.trim(), identification.trim(), req.user.id.id.trim())
         .then(() => {
             res.status(201).json({ msg: 'Profesor creado' })
         })
@@ -23,28 +25,34 @@ const createProfessor = async (req, res) => {
 }
 
 const getProfessors = async (req, res) => {
+
     const professor = new Professor()
-    professor.getProfessors().then((data) => {
-        res.status(200).json(data)
-    }).catch(() => {
-        res.status(404).json({ msg: 'No hay registros' })
-    })
+
+    professor.getProfessors()
+        .then((data) => {
+            res.status(200).json(data)
+        }).catch(() => {
+            res.status(404).json({ msg: 'No hay registros' })
+        })
 
 }
 
 const updateProfessor = (req, res) => {
+
     const { id } = req.params
     const { fullname, identification } = req.body
 
-    if (!(fullname || identification)) {
+    if (!fullname || !identification) {
         return res.status(400).json({ msg: 'Por favor brindar todos los valores' })
     }
-    if (fullname.length > 45 || identification.length > 45) {
+
+    if (fullname.length > 45 || identification.length > 45 || isNaN(id)) {
         return res.status(400).json({ msg: 'Por favor brindar valores válidos' })
     }
 
     const professor = new Professor()
-    professor.updateProfessor(id, fullname, identification)
+
+    professor.updateProfessor(id.trim(), fullname.trim(), identification.trim())
         .then(() => {
             res.status(200).json({ msg: 'Profesor actualizado' })
         }).catch(() => {
@@ -53,12 +61,23 @@ const updateProfessor = (req, res) => {
 }
 
 const deleteProfessor = (req, res) => {
+
     const { id } = req.params
 
+    if (!id) {
+        return res.status(400).json({ msg: 'Por favor brindar todos los valores' })
+    }
+
+    if (isNaN(id)) {
+        return res.status(400).json({ msg: 'Por favor brindar valores válidos' })
+    }
+
     const professor = new Professor()
-    professor.deleteProfessor(id).then(() => {
-        res.status(200).json({ msg: 'Profesor eliminado' })
-    })
+
+    professor.deleteProfessor(id.trim())
+        .then(() => {
+            res.status(200).json({ msg: 'Profesor eliminado' })
+        })
         .catch(() => {
             return res.status(400).json({ msg: 'Error eliminando profesor' })
         })
