@@ -77,9 +77,9 @@ const updateCourse = (req, res) => {
     course.updateCourse(id.trim(), subject.trim(), professor.trim(), campus.trim(), schedule.trim(), quarter.trim(), year.trim(),
         approved.trim(), failed.trim(), dropped.trim())
         .then(() => {
-            res.status(200).json({ msg: 'Curso actualizado' })
+            res.status(201).json({ msg: 'Curso actualizado' })
         }).catch(() => {
-            return res.status(400).json({ msg: 'Error actualizando curso' })
+            return res.status(400).json({ msg: 'Error actualizando curso ' })
         })
 }
 

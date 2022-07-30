@@ -1,4 +1,30 @@
 const User = require('../models/User')
+const {transporter} = require('../mail/forgotPassword')
+const jwt = require('jsonwebtoken')
+
+const sendMail = async (req, res) => {
+    
+    const user = new User()
+    const {to} = req.body
+
+    user.getUserByEmail(to)
+        .then(jwt => {
+            const options = {
+                to,
+                from: "proyecto_ads_2@outlook.com",
+                subject: "Cambio de contraseña",
+                text: "Si desea cambiar de contraseña dele click al siguiente link http://localhost:"+process.env.SERVER_PORT+"/reset-password/"+jwt,
+            }
+            transporter.sendMail(options, function (err, info) {
+                if (err) {
+                    console.log(err);
+                }
+                res.status(201).json({ msg: "Correo enviado", token: jwt })
+            });
+        }).catch(() => {
+            res.status(400).json({msg:"email no valido:"})
+        })
+};
 
 const login = async (req, res) => {
 
@@ -22,7 +48,7 @@ const login = async (req, res) => {
         .then(jwt => {
             res.status(200).json({ token: jwt })
         }).catch(() => {
-            res.status(401).json({ msg: 'Credenciales inválidas' })
+            return res.status(401).json({ msg: 'Credenciales inválidas' })
         })
 };
 
@@ -56,9 +82,9 @@ const register = async (req, res) => {
 const updateUser = async (req, res) => {
 
     const { id } = req.params
-    const { fullName, username, password } = req.body
+    const { fullName, username } = req.body
 
-    if (!fullName || !username || !password) {
+    if (!fullName || !username) {
         return res.status(400).json({ msg: 'Por favor brindar todos los valores' })
     }
 
@@ -66,13 +92,13 @@ const updateUser = async (req, res) => {
         return res.status(400).json({ msg: 'Por favor brindar email válido' })
     }
 
-    if (fullName.length > 45 || username.length > 45 || password.length > 45 || isNaN(id)) {
+    if (fullName.length > 45 || username.length > 45 || isNaN(id)) {
         return res.status(400).json({ msg: 'Por favor brindar valores válidos' })
     }
 
     const user = new User()
 
-    user.updateUser(id.trim(), fullName.trim(), username.trim(), password.trim())
+    user.updateUser(id.trim(), fullName.trim(), username.trim())
         .then(() => {
             res.status(200).json({ msg: 'Usuario actualizado' })
         }).catch(() => {
@@ -113,7 +139,38 @@ const getUsers = async (req, res) => {
         }).catch(() => {
             res.status(404).json({ msg: 'No hay registros' })
         })
-
 }
 
-module.exports = { login, register, updateUser, deleteUser, getUsers };
+const resetPassword = async (req, res) => {
+    const user = new User()
+    
+    const { id } = req.params
+    const { password } = req.body
+
+    if (!password) {
+        return res.status(400).json({ msg: 'Por favor brindar todos los valores' })
+    }
+
+    if ( password.length > 45 ) {
+        return res.status(400).json({ msg: 'Por favor brindar valores válidos' })
+    }
+
+    jwt.verify(id, process.env.JWT_SECRET, (err, decoded) => {
+        if (err) {
+            return res.status(404).send('<h1>Recurso no encontrado...</h1>')
+        }
+        else {
+            const idToken = decoded.id.map(a => a.u_id).toString()
+            console.log(idToken)
+            user.resetPassword(idToken.trim(), password.trim())
+        .then(() => {
+            res.status(200).json({ msg: 'Contraseña actualizada' })
+        }).catch(() => {
+            return res.status(400).json({ msg: 'Error actualizando contraseña' })
+        })
+        }
+    })
+    }
+
+
+module.exports = { login, register, updateUser, deleteUser, getUsers, sendMail,resetPassword };

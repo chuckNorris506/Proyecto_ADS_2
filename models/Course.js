@@ -65,7 +65,7 @@ class Course {
                     else {
                         resolve()
                     }
-                })
+                })   
             connection.end()
         })
     }

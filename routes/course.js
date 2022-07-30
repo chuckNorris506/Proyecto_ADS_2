@@ -1,6 +1,6 @@
 const express = require('express')
 const router = express.Router()
-const { createCourse, getCourse, updateCourse, deleteCourse,getAllCourses } = require('../controllers/course')
+const { createCourse, getCourse, updateCourse, deleteCourse, getAllCourses } = require('../controllers/course')
 
 router.post('/', createCourse)
 router.get('/:id', getCourse)

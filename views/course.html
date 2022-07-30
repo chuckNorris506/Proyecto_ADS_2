@@ -15,9 +15,15 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js"></script>
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/alertify.min.css" />
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/default.min.css" />
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/semantic.min.css" />
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/bootstrap.min.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 </head>
 
-<body>
+<body >
     <header>
         <nav class="main-nav">
             <input type="checkbox" id="check" />
@@ -49,12 +55,12 @@
                 <label for="schedule">Seleccione Horario</label>
                 <input type="time" name="schedule" id="schedule" value="17:00" required>
                 <label for="professor">Seleccione Profesor</label>
-                <select id="professor" required>
-                    <script>getProfessors()</script>
+                <select  id="professor" required>
+                    <script>getProfessors(null)</script>
                 </select>
                 <label for="subject">Seleccione Materia</label>
                 <select id="subject" required>
-                    <script>getSubjects()</script>
+                    <script>getSubjects(null)</script>
                 </select>
             </div>
             <div class="middle">
@@ -97,7 +103,7 @@
                             <th>Aprobados</th>
                             <th>Reprobados</th>
                             <th>Abandonaron</th>
-                            <th>Actions</th>
+                            <th>Acciones</th>
                         </tr>
                     </thead>
                     <tbody id="courseTable">

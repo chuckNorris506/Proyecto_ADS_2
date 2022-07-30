@@ -345,3 +345,10 @@ table.table .avatar {
 .modal form label {
   font-weight: normal;
 }	
+
+.delete {
+  cursor: pointer;
+}
+.edit{
+  cursor: pointer;
+}

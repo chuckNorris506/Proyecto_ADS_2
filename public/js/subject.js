@@ -52,13 +52,11 @@ const getSubjects = async () => {
                     res.forEach(option => {
                         options += 
                         `<tr>
-                        <td style="width: 216px;">${option.s_name}</td>
-                        <td style="width: 216px;">${option.s_code}</td>
+                        <td contenteditable='false' id="name${option.s_id}" style="width: 216px;">${option.s_name}</td>
+                        <td contenteditable='false' id="code${option.s_id}" style="width: 216px;">${option.s_code}</td>
                         <td>
-                            <a href="#" class="edit" data-toggle="modal"><i class="material-icons"
-                                    data-toggle="tooltip" title="Edit">&#xE254;</i></a>
-                            <a href="#" class="delete" data-toggle="modal"><i class="material-icons"
-                                    data-toggle="tooltip" title="Delete">&#xE872;</i></a>
+                            <a onclick="updateSubject(${option.s_id})" class="edit" "><i id="update${option.s_id}" class="material-icons" title="Update">create</i></a>
+                            <a onclick="deleteSubject(${option.s_id})" class="delete" ><i class="material-icons" title="Delete">&#xE872;</i></a>
                         </td>
                     </tr>`
                     })
@@ -72,4 +70,80 @@ const getSubjects = async () => {
             }
         })
         .catch(err => alert(err))
+}
+
+const deleteSubject = async (idSubject) => {
+
+    const options = {
+        method: 'DELETE',
+        headers: {
+            'Authorization': sessionStorage.getItem('jwt')
+        }
+    }
+
+    alertify.confirm("¿Está seguro que desea eliminar la materia?",
+        function(){
+            fetch(`api/v1/subject/${idSubject}`, options)
+        .then(res => {
+            if (res.status === 200) {
+                res.json().then(res => {
+                    getSubjects();
+                })
+            }
+            else {
+                res.json().then(res => {
+                    alert(res.msg)
+                })
+            }
+        })
+        .catch(err => alert(err))
+        },
+        function(){
+            
+    }).setHeader("Mensaje");
+}
+
+const updateSubject = async (idSubject) => {
+    updateBtn = document.getElementById("update"+idSubject).innerHTML
+
+    if (updateBtn == "create") {
+        document.getElementById("name"+idSubject).setAttribute("contenteditable", true)
+        document.getElementById("code"+idSubject).setAttribute("contenteditable", true)
+        document.getElementById("update"+idSubject).innerHTML = "check"
+    }else{
+        if (document.getElementById("name"+idSubject).innerHTML == "" || document.getElementById("code"+idSubject).innerHTML == "") {
+            alertify.alert('Por favor no dejar espacios en blanco');
+            return
+        }
+        const json = {
+            name: document.getElementById("name"+idSubject).innerHTML,
+            code: document.getElementById("code"+idSubject).innerHTML
+        }
+        const options = {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': sessionStorage.getItem('jwt')
+            },
+            body: JSON.stringify(json)
+        }
+    
+        fetch(`api/v1/subject/${idSubject}`, options)
+            .then(res => {
+                if (res.status === 201) {
+                    res.json().then(res => {
+                        alertify.alert(res.msg);
+                    })
+                }
+                else {
+                    res.json().then(res => {
+                        alertify.alert(res.msg);
+                    })
+                }
+            })
+            .catch(err => alert(err))
+        document.getElementById("name"+idSubject).setAttribute("contenteditable", false)
+        document.getElementById("code"+idSubject).setAttribute("contenteditable", false)
+        document.getElementById("update"+idSubject).innerHTML = "create"
+    }
 }

@@ -19,6 +19,19 @@ const authenticate = async (req, res, next) => {
 
 }
 
+const authenticateResetPassword = async (req,res) =>{
+    const token = req.params
+    
+    jwt.verify(Object.values(token).toString(), process.env.JWT_SECRET, (err, decoded) => {
+        if (err) {
+            return res.status(404).send('<h1>Recurso no encontrado...</h1>')
+        }
+        else {
+            res.redirect('http://localhost:'+process.env.SERVER_PORT+'/reset-password.html')
+        }
+    })
+}
+
 const createJWT = async (id) => {
     return new Promise((resolve, reject) => {
         resolve(jwt.sign({ id }, process.env.JWT_SECRET,
@@ -26,4 +39,11 @@ const createJWT = async (id) => {
     })
 }
 
-module.exports = { authenticate, createJWT }
+const JWTResetPassword = async (id) => {
+    return new Promise((resolve, reject) => {
+        resolve(jwt.sign({ id }, process.env.JWT_SECRET,
+            { expiresIn: process.env.JWTResetPassword_LIFETIME }))
+    })
+}
+
+module.exports = { authenticate, createJWT, JWTResetPassword, authenticateResetPassword }
