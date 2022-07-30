@@ -65,7 +65,7 @@ class Course {
                     else {
                         resolve()
                     }
-                })   
+                })
             connection.end()
         })
     }
@@ -103,6 +103,7 @@ class Course {
                         resolve(results[0])
                     }
                 })
+            connection.end()
         })
     }
 }

@@ -22,6 +22,7 @@ const getCampuses = async () => {
             else if (res.status === 404) {
                 res.json().then(res => {
                     document.getElementById('campus').innerHTML = `<option>${res.msg}</option>`
+                    document.getElementById('subject').innerHTML = `<option>${res.msg}</option>`
                 })
             }
         })
@@ -101,6 +102,8 @@ const getData = async (option) => {
             else if (res.status === 404) {
                 res.json().then(res => {
                     if (option === 'dropped') {
+                        document.getElementById(`approved`).innerHTML = ""
+                        document.getElementById(`failed`).innerHTML = ""
                         document.getElementById(`${option}`).innerHTML = res.msg
                     }                    
                 })

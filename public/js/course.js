@@ -11,7 +11,7 @@ const getYear = () => {
   document.getElementById("year").setAttribute("value", year.toString());
 };
 
-const createCourse = async () => {
+const createCourse = () => {
   const json = {
     quarter: document.getElementById("quarter").value,
     year: document.getElementById("year").value,
@@ -21,9 +21,8 @@ const createCourse = async () => {
     campus: document.getElementById("campus").value,
     approved: document.getElementById("approved").value,
     failed: document.getElementById("failed").value,
-    dropped: document.getElementById("dropped").value,
+    dropped: document.getElementById("dropped").value
   };
-  console.log(json);
 
   const options = {
     method: "POST",
@@ -81,7 +80,6 @@ const getCampuses = async (idCampus) => {
           } else {
             document.getElementById("campus" + idCampus).innerHTML = options;
           }
-          getData();
         });
       } else if (res.status === 404) {
         res.json().then((res) => {
@@ -243,7 +241,7 @@ const deleteCourse = async (idCourse) => {
           })
           .catch((err) => alert(err));
       },
-      function () {}
+      function () { }
     )
     .setHeader("Mensaje");
 };
@@ -295,8 +293,6 @@ const updateCourse = async (idCourse) => {
       failed: document.getElementById("failed" + idCourse).innerHTML,
       dropped: document.getElementById("dropped" + idCourse).innerHTML,
     };
-
-    console.log(json);
 
     const options = {
       method: "PUT",
@@ -433,10 +429,11 @@ function CheckTime(str) {
 }
 
 function loadProfessor() {
+
   var val = document.getElementById("professor9");
   var opt = document.createElement("option");
+  
   opt.innerHTML = "test";
-  console.log(val);
   if (val.name == "true") {
     val.appendChild(opt);
     val.removeAttribute("name");

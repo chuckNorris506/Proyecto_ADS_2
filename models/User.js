@@ -22,6 +22,7 @@ class User {
                         reject()
                     }
                 })
+            connection.end()
         })
     }
 
@@ -38,6 +39,7 @@ class User {
                         resolve()
                     }
                 })
+            connection.end()
         })
     }
 
@@ -55,7 +57,7 @@ class User {
                         resolve()
                     }
                 })
-                connection.end()
+            connection.end()
         })
     }
 
@@ -72,7 +74,7 @@ class User {
                         resolve()
                     }
                 })
-                connection.end()
+            connection.end()
         })
     }
 
@@ -92,15 +94,15 @@ class User {
                         resolve(results[0])
                     }
                 })
-                connection.end()
+            connection.end()
         })
     }
 
-    resetPassword = async (id,password) => {
+    resetPassword = async (id, password) => {
         return new Promise((resolve, reject) => {
             const connection = database.getConnnection();
             connection.execute('CALL update_password(?,?)',
-                [id,password],
+                [id, password],
                 (err, results, fields) => {
                     if (err) {
                         reject()
@@ -109,7 +111,7 @@ class User {
                         resolve()
                     }
                 })
-                connection.end()
+            connection.end()
         })
     }
 
@@ -127,7 +129,7 @@ class User {
                         reject()
                     }
                 })
-                connection.end()
+            connection.end()
         })
     }
 }

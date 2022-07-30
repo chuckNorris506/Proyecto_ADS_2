@@ -28,7 +28,7 @@ const createSubject = async () => {
             else if (res.status === 409) {
                 res.json().then(res => {
                     document.getElementById('msg').style.color = 'red'
-                    document.getElementById('msg').innerHTML = res.msg                    
+                    document.getElementById('msg').innerHTML = res.msg
                 })
             }
         })
@@ -50,8 +50,8 @@ const getSubjects = async () => {
                 res.json().then(res => {
                     let options = ""
                     res.forEach(option => {
-                        options += 
-                        `<tr>
+                        options +=
+                            `<tr>
                         <td contenteditable='false' id="name${option.s_id}" style="width: 216px;">${option.s_name}</td>
                         <td contenteditable='false' id="code${option.s_id}" style="width: 216px;">${option.s_code}</td>
                         <td>
@@ -64,9 +64,10 @@ const getSubjects = async () => {
                 })
             }
             else if (res.status === 404) {
-                res.json().then(res => {
-                    document.getElementById('subject').innerHTML = `<option>${res.msg}</option>`
-                })
+                res.json()
+                    .then(res => {
+                        document.getElementById('subjectTable').innerHTML = `<option>${res.msg}</option>`
+                    })
             }
         })
         .catch(err => alert(err))
@@ -82,42 +83,42 @@ const deleteSubject = async (idSubject) => {
     }
 
     alertify.confirm("¿Está seguro que desea eliminar la materia?",
-        function(){
+        function () {
             fetch(`api/v1/subject/${idSubject}`, options)
-        .then(res => {
-            if (res.status === 200) {
-                res.json().then(res => {
-                    getSubjects();
+                .then(res => {
+                    if (res.status === 200) {
+                        res.json().then(res => {
+                            getSubjects();
+                        })
+                    }
+                    else {
+                        res.json().then(res => {
+                            alert(res.msg)
+                        })
+                    }
                 })
-            }
-            else {
-                res.json().then(res => {
-                    alert(res.msg)
-                })
-            }
-        })
-        .catch(err => alert(err))
+                .catch(err => alert(err))
         },
-        function(){
-            
-    }).setHeader("Mensaje");
+        function () {
+
+        }).setHeader("Mensaje");
 }
 
 const updateSubject = async (idSubject) => {
-    updateBtn = document.getElementById("update"+idSubject).innerHTML
+    updateBtn = document.getElementById("update" + idSubject).innerHTML
 
     if (updateBtn == "create") {
-        document.getElementById("name"+idSubject).setAttribute("contenteditable", true)
-        document.getElementById("code"+idSubject).setAttribute("contenteditable", true)
-        document.getElementById("update"+idSubject).innerHTML = "check"
-    }else{
-        if (document.getElementById("name"+idSubject).innerHTML == "" || document.getElementById("code"+idSubject).innerHTML == "") {
+        document.getElementById("name" + idSubject).setAttribute("contenteditable", true)
+        document.getElementById("code" + idSubject).setAttribute("contenteditable", true)
+        document.getElementById("update" + idSubject).innerHTML = "check"
+    } else {
+        if (document.getElementById("name" + idSubject).innerHTML == "" || document.getElementById("code" + idSubject).innerHTML == "") {
             alertify.alert('Por favor no dejar espacios en blanco');
             return
         }
         const json = {
-            name: document.getElementById("name"+idSubject).innerHTML,
-            code: document.getElementById("code"+idSubject).innerHTML
+            name: document.getElementById("name" + idSubject).innerHTML,
+            code: document.getElementById("code" + idSubject).innerHTML
         }
         const options = {
             method: 'PUT',
@@ -127,7 +128,7 @@ const updateSubject = async (idSubject) => {
             },
             body: JSON.stringify(json)
         }
-    
+
         fetch(`api/v1/subject/${idSubject}`, options)
             .then(res => {
                 if (res.status === 201) {
@@ -142,8 +143,8 @@ const updateSubject = async (idSubject) => {
                 }
             })
             .catch(err => alert(err))
-        document.getElementById("name"+idSubject).setAttribute("contenteditable", false)
-        document.getElementById("code"+idSubject).setAttribute("contenteditable", false)
-        document.getElementById("update"+idSubject).innerHTML = "create"
+        document.getElementById("name" + idSubject).setAttribute("contenteditable", false)
+        document.getElementById("code" + idSubject).setAttribute("contenteditable", false)
+        document.getElementById("update" + idSubject).innerHTML = "create"
     }
 }

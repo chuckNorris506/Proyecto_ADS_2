@@ -21,6 +21,7 @@ class Subject {
                         resolve()
                     }
                 })
+            connection.end()
         })
 
     }
@@ -41,6 +42,7 @@ class Subject {
                         resolve(results[0])
                     }
                 })
+            connection.end()
         })
     }
 
@@ -57,6 +59,7 @@ class Subject {
                         resolve()
                     }
                 })
+            connection.end()
         })
     }
 
@@ -73,6 +76,7 @@ class Subject {
                         resolve()
                     }
                 })
+            connection.end()
         })
     }
 

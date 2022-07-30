@@ -19,15 +19,14 @@ const authenticate = async (req, res, next) => {
 
 }
 
-const authenticateResetPassword = async (req,res) =>{
+const authenticateResetPassword = async (req, res) => {
     const token = req.params
-    
     jwt.verify(Object.values(token).toString(), process.env.JWT_SECRET, (err, decoded) => {
         if (err) {
             return res.status(404).send('<h1>Recurso no encontrado...</h1>')
         }
         else {
-            res.redirect('http://localhost:'+process.env.SERVER_PORT+'/reset-password.html')
+            res.redirect('http://localhost:' + process.env.SERVER_PORT + '/reset-password.html')
         }
     })
 }

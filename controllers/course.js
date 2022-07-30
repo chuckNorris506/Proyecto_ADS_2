@@ -7,8 +7,8 @@ const createCourse = async (req, res) => {
     if (!quarter || !year || !schedule || !professor || !subject || !campus || !approved || !failed || !dropped) {
         return res.status(400).json({ msg: 'Por favor brindar todos los valores' })
     }
-    if (quarter.length > 1 || year.length > 4 || schedule.length > 10 || professor.length > 1 || subject.length > 1
-        || campus.length > 1 || approved.length > 2 || failed.length > 2 || dropped.length > 2) {
+    if (quarter.length > 1 || year.length > 4 || schedule.length > 10 || professor.length > 7 || subject.length > 7
+        || campus.length > 7 || approved.length > 2 || failed.length > 2 || dropped.length > 2) {
         return res.status(400).json({ msg: 'Por favor brindar valores válidos' })
     }
 
@@ -67,8 +67,8 @@ const updateCourse = (req, res) => {
         return res.status(400).json({ msg: 'Por favor brindar todos los valores' })
     }
 
-    if (quarter.length > 1 || year.length > 4 || schedule.length > 10 || professor.length > 1 || campus.length > 1
-        || subject.length > 1 || approved.length > 2 || failed.length > 2 || dropped.length > 2 || isNaN(id)) {
+    if (quarter.length > 1 || year.length > 4 || schedule.length > 10 || professor.length > 7 || campus.length > 7
+        || subject.length > 7 || approved.length > 2 || failed.length > 2 || dropped.length > 2 || isNaN(id)) {
         return res.status(400).json({ msg: 'Por favor brindar valores válidos' })
     }
 

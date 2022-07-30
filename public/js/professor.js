@@ -59,11 +59,12 @@ const getProfessors = async () => {
           document.getElementById("professorTable").innerHTML = options;
         });
       } else if (res.status === 404) {
-        res.json().then((res) => {
-          document.getElementById(
-            "professorTable"
-          ).innerHTML = `<option>${res.msg}</option>`;
-        });
+        res.json().
+          then((res) => {
+            document.getElementById(
+              "professorTable"
+            ).innerHTML = `<option>${res.msg}</option>`;
+          });
       }
     })
     .catch((err) => alert(err));
@@ -95,7 +96,7 @@ const deleteProfessor = async (idProfessor) => {
           })
           .catch((err) => alert(err));
       },
-      function () {}
+      function () { }
     )
     .setHeader("Mensaje");
 };
