@@ -53,17 +53,17 @@ class Course {
         })
     }
 
-    updateCourse = async (id, subject, campus, professor, schedule, quarter, year, approved, failed, dropped) => {
+    updateCourse = async (id, subject, professor, campus, schedule, quarter, year, approved, failed, dropped) => {
         return new Promise((resolve, reject) => {
             const connection = database.getConnnection();
             connection.execute('CALL update_course(?,?,?,?,?,?,?,?,?,?)',
                 [id, subject, professor, campus, schedule, quarter, year, approved, failed, dropped],
                 (err, results, fields) => {
                     if (err) {
-                        reject()
+                        reject(err)
                     }
                     else {
-                        resolve()
+                        resolve(err)
                     }
                 })
             connection.end()

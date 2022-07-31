@@ -178,17 +178,17 @@ const getCourse = async () => {
                         <td onkeypress="return allowYearsOnly(event,${option.c_id})" contenteditable='false' id="year${option.c_id}">${option.c_year}</td>
                         <td onBlur="CheckTime(this)" contenteditable='false' id="schedule${option.c_id}">${option.c_schedule}</td>
                         <td contenteditable='false'>
-                        <select onclick="loadProfessor()"  name="true" class="professor" id="professor${option.c_id}" required disabled>
+                        <select onclick="loadProfessor(${option.c_id})"  name="true" class="professor" id="professor${option.c_id}" required disabled>
                           <option value=${option.p_id}> ${option.p_fullName} </option>
                         </select>
                         </td>
                         <td contenteditable='false'>
-                        <select id="subject${option.c_id}" required disabled>
+                        <select onclick="loadSubject(${option.c_id})"  name="true" class="subject" id="subject${option.c_id}" required disabled>
                         <option value=${option.s_id}> ${option.s_name} </option>
                         </select>
                         </td>
                         <td  contenteditable='false'>
-                        <select id="campus${option.c_id}" required disabled>
+                        <select onclick="loadCampus(${option.c_id})"  name="true" class="campus" id="campus${option.c_id}" required disabled>
                         <option value=${option.cp_id}> ${option.cp_Name} </option>
                         </select>
                         </td>
@@ -293,6 +293,8 @@ const updateCourse = async (idCourse) => {
       failed: document.getElementById("failed" + idCourse).innerHTML,
       dropped: document.getElementById("dropped" + idCourse).innerHTML,
     };
+
+    console.log(json)
 
     const options = {
       method: "PUT",
@@ -428,13 +430,37 @@ function CheckTime(str) {
   }
 }
 
-function loadProfessor() {
-
-  var val = document.getElementById("professor9");
+function loadProfessor(id) {
+  var val = document.getElementById("professor"+id);
   var opt = document.createElement("option");
   
-  opt.innerHTML = "test";
+  
   if (val.name == "true") {
+    opt.innerHTML = getProfessors(id)
+    val.appendChild(opt);
+    val.removeAttribute("name");
+  }
+}
+
+function loadSubject(id) {
+  var val = document.getElementById("subject"+id);
+  var opt = document.createElement("option");
+  
+  
+  if (val.name == "true") {
+    opt.innerHTML = getSubjects(id)
+    val.appendChild(opt);
+    val.removeAttribute("name");
+  }
+}
+
+function loadCampus(id) {
+  var val = document.getElementById("campus"+id);
+  var opt = document.createElement("option");
+  
+  
+  if (val.name == "true") {
+    opt.innerHTML = getCampuses(id)
     val.appendChild(opt);
     val.removeAttribute("name");
   }

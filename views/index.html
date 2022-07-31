@@ -18,18 +18,19 @@
     </header>
     <section>
         <h1>Iniciar sesión</h1>
-        <br>
         <form onsubmit="login(); return false">
-            <input type="email" id="username" placeholder="Ingrese usuario" maxlength="45" required>
-            <br>
-            <input type="password" id="password" placeholder="Ingrese contraseña" maxlength="45" required>
-            <br>
-            <a href="/forgot-password.html">¿Olvidó contraseña?</a>
-            <br>
-            <div class="btnLogin">
-                <input type="submit" value="Iniciar sesión">
+            <div>
+                <input type="email" id="username" placeholder="Ingrese usuario" maxlength="45" required>
+                <br>
+                <input type="password" id="password" placeholder="Ingrese contraseña" maxlength="45" required>
+                <br>
+                <a href="/forgot-password.html">¿Olvidó contraseña?</a>
+                <br>
+                <div class="btnLogin">
+                    <input type="submit" value="Iniciar sesión">
+                </div>
+                <p id="msg"></p>
             </div>
-            <p id="msg"></p>
         </form>
     </section>
 </body>

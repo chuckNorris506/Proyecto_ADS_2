@@ -2,7 +2,7 @@
 const checkAuthentication = () => {
     if (!sessionStorage.getItem('jwt')) {
         window.location.assign('/')
-    }
+    }   
 }
 
 const checkAuthenticationLogin = () => {
