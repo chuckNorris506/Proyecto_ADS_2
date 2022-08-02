@@ -18,32 +18,31 @@ header {
 .main-nav {
   height: 90px;
   border-bottom: 3px solid #97D700 !important;
-  font-size: large;
+  font-size: 5%;
 }
 
 .logo {
-  padding-top: 20px;
-  height: 45px;
-  margin: 5px;
+  height: 75%;
+  margin: 1%;
 }
 
 .navlinks {
   list-style: none;
   float: right;
   line-height: 90px;
-  margin: 0;
-  padding: 0;
+  margin: 0 !important;
+  padding: 0 !important;
 }
 
 .navlinks li {
   display: inline-block;
-  margin: 0px 20px;
+  margin: 0px 10px;
 }
 
 .navlinks li a {
   color: white;
   text-decoration: none;
-  font-size: 18px;
+  font-size: 15px;
   transition: all 0.3s linear 0s;
   text-transform: uppercase;
 }
@@ -125,10 +124,12 @@ li a.choose:hover {
   }
 }
 
-@media (max-width: 360px) {
+@media (max-width: 376px) {
   .logo {
-    margin-left: 10px;
+    margin: 10px;
+    margin-top: 20px;
     font-size: 25px;
+    height: 50%;
   }
 
   .menu-btn {
@@ -353,4 +354,21 @@ table.table .avatar {
 }
 .edit{
   cursor: pointer;
+}
+
+@media only screen and (max-width:800px) {
+  /* For tablets: */
+  .main {
+    width: 80%;
+    padding: 0;
+  }
+  .right {
+    width: 100%;
+  }
+}
+@media only screen and (max-width:500px) {
+  /* For mobile phones: */
+  .menu, .main, .right {
+    width: 100%;
+  }
 }
