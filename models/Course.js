@@ -16,18 +16,24 @@ class Course {
 
     createCourse = async (subject, professor, campus, schedule, quarter, year, approved, failed, dropped, id) => {
         return new Promise((resolve, reject) => {
-            const connection = database.getConnnection();
-            connection.execute('CALL create_course(?,?,?,?,?,?,?,?,?,?)',
-                [subject, professor, campus, schedule, quarter, year, approved, failed, dropped, id],
-                (err, results, fields) => {
-                    if (err) {
-                        reject()
-                    }
-                    else {
-                        resolve()
-                    }
+            this.findCourse(subject, professor, campus, schedule, quarter, year)
+                .then(() => {
+                    const connection = database.getConnnection();
+                    connection.execute('CALL create_course(?,?,?,?,?,?,?,?,?,?)',
+                        [subject, professor, campus, schedule, quarter, year, approved, failed, dropped, id],
+                        (err, results, fields) => {
+                            if (err) {
+                                reject()
+                            }
+                            else {
+                                resolve()
+                            }
+                        })
+                    connection.end()
                 })
-            connection.end()
+                .catch(() => {
+                    reject();
+                })
         })
 
     }
@@ -101,6 +107,27 @@ class Course {
                             reject()
                         }
                         resolve(results[0])
+                    }
+                })
+            connection.end()
+        })
+    }
+
+    async findCourse(subject, professor, campus, schedule, quarter, year) {
+        return new Promise((resolve, reject) => {
+            const connection = database.getConnnection();
+            connection.execute('CALL find_course(?,?,?,?,?,?)',
+                [subject, professor, campus, schedule, quarter, year],
+                (err, results, fields) => {
+                    if (err) {
+                        reject()
+                    }
+                    else {
+                        results.pop()
+                        if (results[0].length < 1) {
+                            return resolve()
+                        }
+                        reject()
                     }
                 })
             connection.end()

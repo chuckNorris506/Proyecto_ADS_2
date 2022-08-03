@@ -10,18 +10,24 @@ class Subject {
 
     createSubject = async (name, code, id) => {
         return new Promise((resolve, reject) => {
-            const connection = database.getConnnection();
-            connection.execute('CALL create_subject(?,?,?)',
-                [name, code, id],
-                (err, results, fields) => {
-                    if (err) {
-                        reject()
-                    }
-                    else {
-                        resolve()
-                    }
+            this.findSubject(code)
+                .then(() => {
+                    const connection = database.getConnnection();
+                    connection.execute('CALL create_subject(?,?,?)',
+                        [name, code, id],
+                        (err, results, fields) => {
+                            if (err) {
+                                reject()
+                            }
+                            else {
+                                resolve()
+                            }
+                        })
+                    connection.end()
                 })
-            connection.end()
+                .catch(() => {
+                    reject()
+                })
         })
 
     }
@@ -74,6 +80,27 @@ class Subject {
                     }
                     else {
                         resolve()
+                    }
+                })
+            connection.end()
+        })
+    }
+
+    async findSubject(code) {
+        return new Promise((resolve, reject) => {
+            const connection = database.getConnnection();
+            connection.execute('CALL find_subject(?)',
+                [code],
+                (err, results, fields) => {
+                    if (err) {
+                        reject()
+                    }
+                    else {
+                        results.pop()
+                        if (results[0].length < 1) {
+                            return resolve()
+                        }
+                        reject()
                     }
                 })
             connection.end()

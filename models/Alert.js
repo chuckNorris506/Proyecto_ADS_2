@@ -22,7 +22,7 @@ class Alert {
                         resolve(results[0])
                     }
                 })
-                connection.end()
+            connection.end()
         })
     }
 

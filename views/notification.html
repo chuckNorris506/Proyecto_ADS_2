@@ -6,11 +6,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Universidad Latina de Costa Rica</title>
     <link rel="stylesheet" href="./css/main.css">
-    <link rel="stylesheet" href="./css/notification.css">
     <script type="text/javascript" src="js/authentication.js"></script>
     <script>checkAuthentication()</script>
     <script type="text/javascript" src="js/notification.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 </head>
 
 <body>
@@ -22,7 +25,7 @@
             </label>
             <img class="logo" src="./img/logo_ulatina.png">
             <ul class="navlinks">
-                <li><a href="./dashboard.html" >Inicio</a></li>
+                <li><a href="./dashboard.html">Inicio</a></li>
                 <li><a href="./course.html">Cursos</a></li>
                 <li><a href="./professor.html">Profesores</a></li>
                 <li><a href="./subject.html">Materias</a></li>
@@ -32,13 +35,40 @@
             </ul>
         </nav>
     </header>
-    <div class="container">   
-             <h1>Notificaciones</h1>
-        <ul id="alerts">
-            <script>getAlerts()</script>
-        </ul>
-        <p id="msg"></p>
+    <div class="container">
+        <div id="container" class="container">
+            <div class="table-responsive">
+                <div class="table-wrapper">
+                    <div class="table-title">
+                        <div class="row">
+                            <div class="col-xs-6">
+                                <h2>Notificaciones</h2>
+                            </div>
+                        </div>
+                    </div>
+                    <table class="table table-striped table-hover">
+                        <thead>
+                            <tr>
+                                <th>Materia</th>
+                                <th>Sede</th>
+                                <th>Año</th>
+                                <th>Cuatrimestre</th>
+                                <th>Aprobados</th>
+                                <th>Reprobados</th>
+                                <th>Abandonaron</th>
+                            </tr>
+                        </thead>
+                        <tbody id="notificationTable">
+                            <tr>
+                                <script>getAlerts();</script>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
     </div>
+    <script src="js/responsive.js"></script>
 </body>
 
 </html>

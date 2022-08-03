@@ -28,23 +28,29 @@ class User {
 
     async register(fullName, username, password) {
         return new Promise((resolve, reject) => {
-            const connection = database.getConnnection();
-            connection.execute('CALL register(?,?,?)',
-                [fullName, username, password],
-                (err, results, fields) => {
-                    if (err) {
-                        reject()
-                    }
-                    else {
-                        resolve()
-                    }
+            this.findUser(username)
+                .then(() => {
+                    const connection = database.getConnnection();
+                    connection.execute('CALL register(?,?,?)',
+                        [fullName, username, password],
+                        (err, results, fields) => {
+                            if (err) {
+                                reject()
+                            }
+                            else {
+                                resolve()
+                            }
+                        })
+                    connection.end()
                 })
-            connection.end()
+                .catch(() => {
+                    reject()
+                })
+
         })
     }
 
     async updateUser(id, fullName, username) {
-
         return new Promise((resolve, reject) => {
             const connection = database.getConnnection();
             connection.execute('CALL update_user(?,?,?)',
@@ -126,6 +132,27 @@ class User {
                         return resolve(JWTResetPassword(this.id))
                     }
                     else {
+                        reject()
+                    }
+                })
+            connection.end()
+        })
+    }
+
+    async findUser(username) {
+        return new Promise((resolve, reject) => {
+            const connection = database.getConnnection();
+            connection.execute('CALL find_user(?)',
+                [username],
+                (err, results, fields) => {
+                    if (err) {
+                        reject()
+                    }
+                    else {
+                        results.pop()
+                        if (results[0].length < 1) {
+                            return resolve()
+                        }
                         reject()
                     }
                 })

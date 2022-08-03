@@ -10,18 +10,24 @@ class Professor {
 
     createProfessor = async (fullName, identification, id) => {
         return new Promise((resolve, reject) => {
-            const connection = database.getConnnection();
-            connection.execute('CALL create_professor(?,?,?)',
-                [fullName, identification, id],
-                (err, results, fields) => {
-                    if (err) {
-                        reject()
-                    }
-                    else {
-                        resolve()
-                    }
+            this.findProfessor(identification)
+                .then(() => {
+                    const connection = database.getConnnection();
+                    connection.execute('CALL create_professor(?,?,?)',
+                        [fullName, identification, id],
+                        (err, results, fields) => {
+                            if (err) {
+                                reject()
+                            }
+                            else {
+                                resolve()
+                            }
+                        })
+                    connection.end()
                 })
-                connection.end()
+                .catch(() => {
+                    reject()
+                })
         })
 
     }
@@ -42,7 +48,7 @@ class Professor {
                         resolve(results[0])
                     }
                 })
-                connection.end()
+            connection.end()
         })
     }
 
@@ -59,7 +65,7 @@ class Professor {
                         resolve()
                     }
                 })
-                connection.end()
+            connection.end()
         })
     }
 
@@ -76,7 +82,28 @@ class Professor {
                         resolve()
                     }
                 })
-                connection.end()
+            connection.end()
+        })
+    }
+
+    async findProfessor(identification) {
+        return new Promise((resolve, reject) => {
+            const connection = database.getConnnection();
+            connection.execute('CALL find_professor(?)',
+                [identification],
+                (err, results, fields) => {
+                    if (err) {
+                        reject()
+                    }
+                    else {
+                        results.pop()
+                        if (results[0].length < 1) {
+                            return resolve()
+                        }
+                        reject()
+                    }
+                })
+            connection.end()
         })
     }
 }
