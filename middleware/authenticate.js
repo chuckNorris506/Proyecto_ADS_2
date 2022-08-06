@@ -26,7 +26,7 @@ const authenticateResetPassword = async (req, res) => {
             return res.status(404).send('<h1>Recurso no encontrado...</h1>')
         }
         else {
-            res.redirect('http://localhost:' + process.env.SERVER_PORT + '/reset-password.html')
+            res.redirect('https://localhost:' + process.env.SERVER_PORT + '/reset-password.html')
         }
     })
 }

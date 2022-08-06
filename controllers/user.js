@@ -13,7 +13,7 @@ const sendMail = async (req, res) => {
                 to,
                 from: process.env.EMAIL_USER,
                 subject: "Cambio de contraseña",
-                text: "Si desea cambiar de contraseña dele click al siguiente link http://localhost:"
+                text: "Si desea cambiar de contraseña dele click al siguiente link https://localhost:"
                     + process.env.SERVER_PORT + "/reset-password/" + jwt,
             }
             transporter.sendMail(options, function (err, info) {
