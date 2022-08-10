@@ -88,12 +88,12 @@ const getChartData = async () => {
         let failedMostRecent = failed.shift()
         let droppedMostRecent = dropped.shift()
         let totalMostRecent = approvedMostRecent + failedMostRecent + droppedMostRecent
-        alert(droppedMostRecent)
+        
         let pamr = approvedMostRecent * 100 / totalMostRecent
         let pfmr = failedMostRecent * 100 / totalMostRecent
         let pdmr = droppedMostRecent * 100 / totalMostRecent
         
-        alert(pfmr)
+        
         let totalApprovedHistorical = 0
         let totalFailedHistorical = 0
         let totalDroppedHistorical = 0
