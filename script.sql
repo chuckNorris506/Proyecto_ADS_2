@@ -27,13 +27,13 @@ DROP TABLE IF EXISTS `alerts`;
 CREATE TABLE `alerts` (
   `a_id` int NOT NULL AUTO_INCREMENT,
   `a_course` int NOT NULL,
-  `a_courseVarianceApproved` decimal(10,2) NOT NULL,
-  `a_courseVarianceFailed` decimal(10,2) NOT NULL,
-  `a_courseVarianceDropped` decimal(10,2) NOT NULL,
+  `a_approved_diff` decimal(10,2) NOT NULL,
+  `a_failed_diff` decimal(10,2) NOT NULL,
+  `a_dropped_diff` decimal(10,2) NOT NULL,
   PRIMARY KEY (`a_id`),
   KEY `fk_alert_course_idx` (`a_course`),
   CONSTRAINT `fk_alert_course` FOREIGN KEY (`a_course`) REFERENCES `courses` (`c_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -42,6 +42,7 @@ CREATE TABLE `alerts` (
 
 LOCK TABLES `alerts` WRITE;
 /*!40000 ALTER TABLE `alerts` DISABLE KEYS */;
+INSERT INTO `alerts` VALUES (2,8,-37.36,23.02,14.34);
 /*!40000 ALTER TABLE `alerts` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -67,7 +68,7 @@ CREATE TABLE `campuses` (
 
 LOCK TABLES `campuses` WRITE;
 /*!40000 ALTER TABLE `campuses` DISABLE KEYS */;
-INSERT INTO `campuses` VALUES (7,'Cañas'),(6,'Ciudad Neily'),(5,'Grecia'),(3,'Guápiles'),(2,'Heredia'),(4,'Pérez Zeledón'),(1,'San Pedro'),(8,'Santa Cruz');
+INSERT INTO `campuses` VALUES (8,'Cañas'),(7,'Ciudad Neily'),(6,'Grecia'),(5,'Guápiles'),(2,'Heredia'),(3,'Pérez Zeledón'),(1,'San Pedro'),(4,'Santa Cruz');
 /*!40000 ALTER TABLE `campuses` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -101,7 +102,7 @@ CREATE TABLE `courses` (
   CONSTRAINT `fk_course_professor` FOREIGN KEY (`c_professor`) REFERENCES `professors` (`p_id`),
   CONSTRAINT `fk_course_subject` FOREIGN KEY (`c_subject`) REFERENCES `subjects` (`s_id`),
   CONSTRAINT `fk_course_user` FOREIGN KEY (`c_createdBy`) REFERENCES `users` (`u_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -110,6 +111,7 @@ CREATE TABLE `courses` (
 
 LOCK TABLES `courses` WRITE;
 /*!40000 ALTER TABLE `courses` DISABLE KEYS */;
+INSERT INTO `courses` VALUES (8,1,1,2,'17:00:00',1,2023,10,10,5,1,1),(2,1,2,2,'19:30:00',2,2022,25,3,0,1,1),(4,1,2,2,'19:30:00',3,2022,16,6,3,1,1),(1,2,1,2,'19:00:00',2,2022,25,2,1,1,1),(3,2,1,2,'19:00:00',3,2022,22,1,0,1,1);
 /*!40000 ALTER TABLE `courses` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -131,7 +133,7 @@ CREATE TABLE `professors` (
   UNIQUE KEY `p_identification_UNIQUE` (`p_identification`),
   KEY `fk_professor_user_idx` (`p_createdBy`),
   CONSTRAINT `fk_professors_users` FOREIGN KEY (`p_createdBy`) REFERENCES `users` (`u_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -140,6 +142,7 @@ CREATE TABLE `professors` (
 
 LOCK TABLES `professors` WRITE;
 /*!40000 ALTER TABLE `professors` DISABLE KEYS */;
+INSERT INTO `professors` VALUES (1,'Gerardo Gamboa','43218765',1,1),(2,'Jacqueline Méndez','14325098',1,1);
 /*!40000 ALTER TABLE `professors` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -160,7 +163,7 @@ CREATE TABLE `subjects` (
   UNIQUE KEY `s_code_UNIQUE` (`s_code`),
   KEY `fk_subject_user_idx` (`s_createdBy`),
   CONSTRAINT `fk_subject_user` FOREIGN KEY (`s_createdBy`) REFERENCES `users` (`u_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -169,6 +172,7 @@ CREATE TABLE `subjects` (
 
 LOCK TABLES `subjects` WRITE;
 /*!40000 ALTER TABLE `subjects` DISABLE KEYS */;
+INSERT INTO `subjects` VALUES (1,'Análisis y Diseño de Sistemas 2','BIS01',1,1),(2,'Programación 4','BIS02',1,1);
 /*!40000 ALTER TABLE `subjects` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -197,7 +201,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (1,'Admin','admin@ulatina.net','21232f297a57a5a743894a0e4a801fc3',1);
+INSERT INTO `users` VALUES (1,'ADMIN','admin@ulatina.net','21232f297a57a5a743894a0e4a801fc3',1);
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -237,35 +241,54 @@ DELIMITER ;;
 CREATE DEFINER=`root`@`localhost` PROCEDURE `create_course`(par_c_subject INT, par_c_professor INT, par_c_campus INT , par_c_schedule TIME, par_c_quarter INT, par_c_year INT,  
 par_c_students_approved INT, par_c_students_failed INT, par_c_students_dropped INT, par_c_createdBy INT)
 BEGIN
-SET @approved = (SELECT SUM(c_students_approved) FROM courses WHERE c_subject = par_c_subject ORDER BY c_id DESC LIMIT 9);
-SET @failed = (SELECT SUM(c_students_failed) FROM courses WHERE c_subject = par_c_subject ORDER BY c_id DESC LIMIT 9);
-SET @dropped = (SELECT SUM(c_students_dropped) FROM courses WHERE c_subject = par_c_subject ORDER BY c_id DESC LIMIT 9);
-
-SET @courseRows = (SELECT count(*) FROM (SELECT * FROM courses WHERE c_subject = par_c_subject LIMIT 9) as approvedQuantity);
-/*Da cantidad de estudiantes de registros*/
-SET @averageApproved = @approved / @courseRows;
-SET @averageFailed = @failed / @courseRows;
-SET @averageDropped = @dropped / @courseRows;
-/*Da porcentaje respecto a un 100%*/
-SET @courseAverageApproved = ((par_c_students_approved * 100) / @averageApproved);
-SET @courseAverageFailed = ((par_c_students_failed * 100) / @averageFailed);
-SET @courseAverageDropped = ((par_c_students_dropped * 100) / @averageDropped);
-/*Da valores de variacion para registrar*/
-SET @approvedVariance = (@courseAverageApproved - 100);
-SET @failedVariance = (@courseAverageFailed- 100);
-SET @droppedVariance = (@courseAverageDropped- 100);
-
-/*Inserta curso*/
+/*-----------------------------------------------------------------------------------------------------------------------*/
+/*------------------------------------------------------HISTORICO--------------------------------------------------------*/
+/*-----------------------------------------------------------------------------------------------------------------------*/
+/*Suma de aprobados, reprobados y abandonaron históricos últimos 9 registros*/
+SET @h_approved = (SELECT SUM(c_students_approved) FROM courses WHERE c_subject = par_c_subject AND c_status = 1 ORDER BY c_id DESC LIMIT 9);
+SET @h_failed = (SELECT SUM(c_students_failed) FROM courses WHERE c_subject = par_c_subject AND c_status = 1 ORDER BY c_id DESC LIMIT 9);
+SET @h_dropped = (SELECT SUM(c_students_dropped) FROM courses WHERE c_subject = par_c_subject AND c_status = 1 ORDER BY c_id DESC LIMIT 9);
+/*Suma total estudiantes últimos 9 registros*/
+SET @h_total = @h_approved + @h_failed + @h_dropped;
+/*Porcentaje de aprobados, reprobados y abandonaron históricos*/
+SET @h_a_approved = @h_approved * 100 / @h_total;
+SET @h_a_failed = @h_failed * 100 / @h_total;
+SET @h_a_dropped = @h_dropped * 100 / @h_total;
+/*-----------------------------------------------------------------------------------------------------------------------*/
+/*--------------------------------------------------------ACTUAL---------------------------------------------------------*/
+/*-----------------------------------------------------------------------------------------------------------------------*/
+/**Suma de aprobados, reprobados y abandonaron actual*/
+SET @c_approved = par_c_students_approved;
+SET @c_failed = par_c_students_failed;
+SET @c_dropped = par_c_students_dropped;
+/*Suma total estudiantes actual*/
+SET @c_total = @c_approved + @c_failed + @c_dropped;
+/*Porcentaje de aprobados, reprobados y abandonaron actual*/
+SET @c_a_approved = @c_approved * 100 / @c_total;
+SET @c_a_failed = @c_failed * 100 / @c_total;
+SET @c_a_dropped = @c_dropped * 100 / @c_total;
+/*-----------------------------------------------------------------------------------------------------------------------*/
+/*--------------------------------------------------------COMPARACION----------------------------------------------------*/
+/*-----------------------------------------------------------------------------------------------------------------------*/
+/*Diferencia entre porcentajes históricos y actuales*/
+SET @approved_diff = @c_a_approved - @h_a_approved;
+SET @failed_diff = @c_a_failed - @h_a_failed;
+SET @dropped_diff = @c_a_dropped - @h_a_dropped;
+/*-----------------------------------------------------------------------------------------------------------------------*/
+/*--------------------------------------------------INSERTA CURSO ACTUAL-------------------------------------------------*/
+/*-----------------------------------------------------------------------------------------------------------------------*/
 INSERT INTO courses(c_subject, c_campus, c_schedule, c_quarter, c_year, c_professor, c_students_approved, c_students_failed, c_students_dropped, c_createdBy)
 VALUES(par_c_subject , par_c_campus, par_c_schedule , par_c_quarter , par_c_year , par_c_professor , par_c_students_approved , par_c_students_failed , par_c_students_dropped , par_c_createdBy );
-
-/*Inserta alerta en caso de variacion*/
+/*-----------------------------------------------------------------------------------------------------------------------*/
+/*--------------------------------------------------------INSERTA ALERTA-------------------------------------------------*/
+/*-----------------------------------------------------------------------------------------------------------------------*/
 SET @last_id = LAST_INSERT_ID();
 IF 
-@courseAverageApproved < 90 OR @courseAverageApproved > 110 OR @courseAverageFailed < 90 OR @courseAverageFailed > 110 OR @courseAverageDropped < 90 OR @courseAverageDropped > 110
+/*Si variaciones son mayores a 10 o -10 se inserta alerta*/
+@approved_diff > 10 OR @approved_diff < -10 OR @failed_diff > 10 OR @failed_diff < -10 OR @dropped_diff > 10 OR @dropped_diff < -10
 THEN
-INSERT INTO alerts(a_course,a_courseVarianceApproved, a_courseVarianceFailed, a_courseVarianceDropped)
-VALUES (@last_id, @approvedVariance, @failedVariance, @droppedVariance);
+INSERT INTO alerts(a_course,a_approved_diff, a_failed_diff, a_dropped_diff)
+VALUES (@last_id, @approved_diff, @failed_diff, @dropped_diff);
 END IF;
 
 END ;;
@@ -488,11 +511,10 @@ DELIMITER ;
 DELIMITER ;;
 CREATE DEFINER=`root`@`localhost` PROCEDURE `get_alerts`()
 BEGIN
-SELECT cp_name,s_name,s_code,c_year,c_quarter,a_courseVarianceApproved, a_courseVarianceFailed, a_courseVarianceDropped FROM alerts 
+SELECT cp_name,s_name,s_code,c_year,c_quarter,a_approved_diff, a_failed_diff, a_dropped_diff FROM alerts 
 INNER JOIN courses ON a_course=c_id
 INNER JOIN subjects ON c_subject=s_id
-INNER JOIN campuses ON c_campus=cp_id
-LIMIT 10;
+INNER JOIN campuses ON c_campus=cp_id;
 END ;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
@@ -550,12 +572,12 @@ DELIMITER ;
 /*!50003 SET character_set_results = utf8mb4 */ ;
 /*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
 CREATE DEFINER=`root`@`localhost` PROCEDURE `get_course`(par_c_subject INT, par_c_campus INT,par_option VARCHAR(15))
 BEGIN
 
-IF par_c_campus = 1
+IF par_c_campus = 0
 THEN
 		IF par_option = 'approved'
 		THEN
@@ -567,7 +589,7 @@ THEN
 		THEN 
 		SELECT  c_students_dropped as dropped FROM courses WHERE c_subject = par_c_subject ORDER BY c_id DESC LIMIT 10;
         END IF;
-ELSEIF par_c_campus != 1
+ELSEIF par_c_campus != 0
 THEN
 		IF par_option = 'approved'
 		THEN
@@ -816,4 +838,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-08-03 15:35:30
+-- Dump completed on 2022-08-10 11:33:59

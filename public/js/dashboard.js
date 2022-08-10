@@ -11,7 +11,7 @@ const getCampuses = async () => {
         .then(res => {
             if (res.status === 200) {
                 res.json().then(res => {
-                    let data = "<option value=1>Todos</option>"
+                    let data = "<option value=0>Todos</option>"
                     res.forEach(option => {
                         data += `<option value=${option.cp_id}> ${option.cp_name}</option>`
                     })

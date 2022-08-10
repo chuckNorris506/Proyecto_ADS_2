@@ -19,9 +19,9 @@ const getAlerts = async () => {
                         <td contenteditable='false' style="width: 216px;">${alert.cp_name}</td>
                         <td contenteditable='false' style="width: 216px;">${alert.c_year}</td>
                         <td contenteditable='false' style="width: 216px;">${alert.c_quarter}</td>
-                        <td contenteditable='false' style="width: 216px;">${alert.a_courseVarianceApproved} %</td>
-                        <td contenteditable='false' style="width: 216px;">${alert.a_courseVarianceFailed} %</td>
-                        <td contenteditable='false' style="width: 216px;">${alert.a_courseVarianceDropped} %</td>
+                        <td contenteditable='false' style="width: 216px;">${alert.a_approved_diff} %</td>
+                        <td contenteditable='false' style="width: 216px;">${alert.a_failed_diff} %</td>
+                        <td contenteditable='false' style="width: 216px;">${alert.a_dropped_diff} %</td>
                             </tr>`
                     })
                     document.getElementById('notificationTable').innerHTML = alerts

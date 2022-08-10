@@ -2,9 +2,9 @@ const database = require('../database/dbConnect')
 
 class Alert {
     id
-    courseVarianceApproved
-    courseVarianceFailed
-    courseVarianceDropped
+    approvedDiff
+    failedDiff
+    droppedDiff
 
     getAlerts = async () => {
         return new Promise((resolve, reject) => {
