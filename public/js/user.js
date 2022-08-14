@@ -211,8 +211,15 @@ const sendMail = async () => {
       .catch((err) => alert(err));
 };
 
+/**
+ * It takes the id from localStorage and sends it to the backend to update the password.
+ * @returns {
+ *   "msg": "Contraseña actualizada"
+ * }</code>
+ */
 const resetPassword = async () => {
 
+  /* Checking if the password and the password2 are the same. */
   if (
     document.getElementById("password").value !=
     document.getElementById("password2").value
@@ -221,13 +228,16 @@ const resetPassword = async () => {
     return;
   }
 
+  /* Getting the id from localStorage. */
   const id = localStorage.getItem('id')
   
 
+  /* Getting the value from the input with the id "password" and storing it in the variable "json". */
   const json = {
     password: document.getElementById("password").value
   };
 
+  /* Sending a PUT request to the backend. */
   const options = {
     method: "PUT",
     headers: {

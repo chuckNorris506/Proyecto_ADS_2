@@ -1,10 +1,15 @@
+/**
+ * It takes the values of two input fields, creates a JSON object, and sends it to the server.
+ */
 const createSubject = async () => {
 
+    /* Creating a JSON object with the values of the input fields. */
     const json = {
         name: document.getElementById('name').value,
         code: document.getElementById('code').value
     }
 
+    /* Creating a JSON object with the values of the input fields. */
     const options = {
         method: 'POST',
         headers: {
@@ -14,6 +19,7 @@ const createSubject = async () => {
         body: JSON.stringify(json)
     }
 
+    /* A fetch request to the server. */
     fetch("api/v1/subject/", options)
         .then(res => {
             if (res.status === 201) {
@@ -37,6 +43,7 @@ const createSubject = async () => {
 
 const getSubjects = async () => {
 
+    /* A JSON object that contains the method and the headers of the request. */
     const options = {
         method: 'GET',
         headers: {
@@ -44,6 +51,7 @@ const getSubjects = async () => {
         }
     }
 
+    /* A fetch request to the server. */
     fetch(`api/v1/subject`, options)
         .then(res => {
             if (res.status === 200) {
@@ -73,8 +81,13 @@ const getSubjects = async () => {
         .catch(err => alert(err))
 }
 
+/**
+ * It deletes a subject from the database.
+ * @param idSubject - the id of the subject to be deleted
+ */
 const deleteSubject = async (idSubject) => {
 
+    /* A JSON object that contains the method and the headers of the request. */
     const options = {
         method: 'DELETE',
         headers: {
@@ -82,6 +95,7 @@ const deleteSubject = async (idSubject) => {
         }
     }
 
+    /* A confirmation message that appears when the user clicks on the delete button. */
     alertify.confirm("¿Está seguro que desea eliminar la materia?",
         function () {
             fetch(`api/v1/subject/${idSubject}`, options)
@@ -104,9 +118,19 @@ const deleteSubject = async (idSubject) => {
         }).setHeader("Mensaje");
 }
 
+/**
+ * It changes the content of the button from "create" to "check" and vice versa.
+ * @param idSubject - id of the subject
+ * @returns the value of the variable updateBtn.
+ */
 const updateSubject = async (idSubject) => {
+    /* Getting the value of the button. */
     updateBtn = document.getElementById("update" + idSubject).innerHTML
 
+    /* Checking if the button is "create" or "check". If it is "create", it will change the content of
+    the button to "check" and it will make the input fields editable. If it is "check", it will
+    check if the input fields are empty. If they are empty, it will show an alert. If they are not
+    empty, it will make a request to the server to update the subject. */
     if (updateBtn == "create") {
         document.getElementById("name" + idSubject).setAttribute("contenteditable", true)
         document.getElementById("code" + idSubject).setAttribute("contenteditable", true)
@@ -116,10 +140,12 @@ const updateSubject = async (idSubject) => {
             alertify.alert('Por favor no dejar espacios en blanco');
             return
         }
+        /* Creating a JSON object with the values of the input fields. */
         const json = {
             name: document.getElementById("name" + idSubject).innerHTML,
             code: document.getElementById("code" + idSubject).innerHTML
         }
+        /* Creating a JSON object with the method, headers, and body of the request. */
         const options = {
             method: 'PUT',
             headers: {
@@ -129,6 +155,7 @@ const updateSubject = async (idSubject) => {
             body: JSON.stringify(json)
         }
 
+        /* Making a request to the server to update the subject. */
         fetch(`api/v1/subject/${idSubject}`, options)
             .then(res => {
                 if (res.status === 201) {
@@ -143,6 +170,7 @@ const updateSubject = async (idSubject) => {
                 }
             })
             .catch(err => alert(err))
+        /* Making the input fields not editable and changing the content of the button to "create". */
         document.getElementById("name" + idSubject).setAttribute("contenteditable", false)
         document.getElementById("code" + idSubject).setAttribute("contenteditable", false)
         document.getElementById("update" + idSubject).innerHTML = "create"

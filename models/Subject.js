@@ -1,13 +1,16 @@
+/* Importing the database connection file. */
 const database = require('../database/dbConnect')
 
 class Subject {
 
+    /* A class variable. */
     id
     name
     code
     createdBy
     status
 
+    /* A function that creates a subject in the database. */
     createSubject = async (name, code, id) => {
         return new Promise((resolve, reject) => {
             this.findSubject(code)
@@ -32,6 +35,7 @@ class Subject {
 
     }
 
+    /* A function that returns a promise. */
     getSubjects = async () => {
         return new Promise((resolve, reject) => {
             const connection = database.getConnnection();
@@ -52,6 +56,7 @@ class Subject {
         })
     }
 
+    /* Updating the subject in the database. */
     updateSubject = async (id, name, code) => {
         return new Promise((resolve, reject) => {
             const connection = database.getConnnection();
@@ -69,6 +74,7 @@ class Subject {
         })
     }
 
+    /* Deleting a subject from the database. */
     deleteSubject = async (id) => {
         return new Promise((resolve, reject) => {
             const connection = database.getConnnection();
@@ -86,6 +92,11 @@ class Subject {
         })
     }
 
+    /**
+     * It checks if a subject exists in the database
+     * @param code - the code of the subject
+     * @returns A promise that resolves if the subject does not exist, and rejects if it does.
+     */
     async findSubject(code) {
         return new Promise((resolve, reject) => {
             const connection = database.getConnnection();
@@ -109,4 +120,5 @@ class Subject {
 
 }
 
+/* Exporting the class Subject to be used in other files. */
 module.exports = Subject

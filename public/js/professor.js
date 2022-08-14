@@ -1,9 +1,14 @@
+/**
+ * It takes the values of the inputs and sends them to the server.
+ */
 const createProfessor = async () => {
+  /* Taking the values of the inputs and storing them in a variable called json. */
   const json = {
     fullname: document.getElementById("fullname").value,
     identification: document.getElementById("identification").value,
   };
 
+  /* A constant that is storing the method, headers and body of the request. */
   const options = {
     method: "POST",
     headers: {
@@ -13,6 +18,7 @@ const createProfessor = async () => {
     body: JSON.stringify(json),
   };
 
+  /* Sending the values of the inputs to the server. */
   fetch(`api/v1/professor/`, options)
     .then((res) => {
       if (res.status === 201) {
@@ -33,7 +39,11 @@ const createProfessor = async () => {
     .catch((err) => alert(err));
 };
 
+/**
+ * It gets all the professors from the database and displays them in a table.
+ */
 const getProfessors = async () => {
+  /* A constant that is storing the method, headers and body of the request. */
   const options = {
     method: "GET",
     headers: {
@@ -41,6 +51,7 @@ const getProfessors = async () => {
     },
   };
 
+  /* Getting all the professors from the database and displaying them in a table. */
   fetch(`api/v1/professor`, options)
     .then((res) => {
       if (res.status === 200) {
@@ -70,7 +81,12 @@ const getProfessors = async () => {
     .catch((err) => alert(err));
 };
 
+/**
+ * It deletes a professor from the database.
+ * @param idProfessor - the id of the professor to be deleted
+ */
 const deleteProfessor = async (idProfessor) => {
+  /* Storing the method, headers and body of the request. */
   const options = {
     method: "DELETE",
     headers: {
@@ -78,6 +94,7 @@ const deleteProfessor = async (idProfessor) => {
     },
   };
 
+ /* A confirmation message that appears when you want to delete a professor. */
   alertify
     .confirm(
       "¿Está seguro que desea eliminar al profesor?",
@@ -101,9 +118,16 @@ const deleteProfessor = async (idProfessor) => {
     .setHeader("Mensaje");
 };
 
+/**
+ * It updates the professor's information in the database.
+ * @param idProfessor - id of the professor
+ * @returns the value of the variable updateBtn.
+ */
 const updateProfessor = async (idProfessor) => {
+  /* Getting the value of the button. */
   updateBtn = document.getElementById("update" + idProfessor).innerHTML;
 
+  /* Making the inputs editable. */
   if (updateBtn == "create") {
     document
       .getElementById("fullname" + idProfessor)
@@ -134,6 +158,7 @@ const updateProfessor = async (idProfessor) => {
       body: JSON.stringify(json),
     };
 
+    /* Updating the professor's information in the database. */
     fetch(`api/v1/professor/${idProfessor}`, options)
       .then((res) => {
         if (res.status === 201) {
@@ -147,6 +172,7 @@ const updateProfessor = async (idProfessor) => {
         }
       })
       .catch((err) => alert(err));
+    /* Making the inputs not editable. */
     document
       .getElementById("fullname" + idProfessor)
       .setAttribute("contenteditable", false);

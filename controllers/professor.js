@@ -1,5 +1,12 @@
+/* Importing the Professor class from the Professor.js file. */
 const Professor = require('../models/Professor.js');
 
+/**
+ * It creates a professor.
+ * @param req - the request object
+ * @param res - the response object
+ * @returns A promise
+ */
 const createProfessor = async (req, res) => {
 
     const { fullname, identification } = req.body
@@ -24,6 +31,11 @@ const createProfessor = async (req, res) => {
 
 }
 
+/**
+ * It's a function that gets all the professors from the database.
+ * @param req - The request object.
+ * @param res - the response object
+ */
 const getProfessors = async (req, res) => {
 
     const professor = new Professor()
@@ -37,6 +49,12 @@ const getProfessors = async (req, res) => {
 
 }
 
+/**
+ * It updates a professor's information in the database.
+ * @param req - request
+ * @param res - the response object
+ * @returns A function that takes two parameters, req and res.
+ */
 const updateProfessor = (req, res) => {
 
     const { id } = req.params
@@ -60,6 +78,13 @@ const updateProfessor = (req, res) => {
         })
 }
 
+/**
+ * It deletes a professor from the database
+ * @param req - The request object represents the HTTP request and has properties for the request query
+ * string, parameters, body, HTTP headers, and so on.
+ * @param res - the response object
+ * @returns The professor object is being returned.
+ */
 const deleteProfessor = (req, res) => {
 
     const { id } = req.params
@@ -83,4 +108,5 @@ const deleteProfessor = (req, res) => {
         })
 }
 
+/* Exporting the functions. */
 module.exports = { createProfessor, getProfessors, updateProfessor, deleteProfessor }

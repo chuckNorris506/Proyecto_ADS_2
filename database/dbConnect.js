@@ -1,5 +1,10 @@
+/* Importing the mysql2 module. */
 const mysql = require('mysql2')
 
+/**
+ * It creates a connection to the database using the environment variables.
+ * @returns A connection object.
+ */
 const getConnnection = () => {
     const connection = mysql.createConnection({
         host: process.env.DB_HOST,
@@ -11,4 +16,5 @@ const getConnnection = () => {
     return connection
 }
 
+/* Exporting the `getConnnection` function. */
 module.exports = { getConnnection }

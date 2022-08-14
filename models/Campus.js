@@ -1,9 +1,12 @@
+/* It's importing the file dbConnect.js from the folder database. */
 const database = require('../database/dbConnect')
 
 class Campus {
+    /* It's a class property. */
     id
     name
 
+    /* It's a class method. */
     getCampuses = async () => {
         return new Promise((resolve, reject) => {
             const connection = database.getConnnection()
@@ -26,4 +29,5 @@ class Campus {
 
 }
 
+/* It's exporting the class Campus to be used in other files. */
 module.exports = Campus

@@ -1,13 +1,16 @@
+/* Importing the database connection. */
 const database = require('../database/dbConnect')
 
 class Professor {
 
+    /* A class property. */
     id
     fullName
     identification
     createdBy
     status
 
+    /* A function that creates a professor. */
     createProfessor = async (fullName, identification, id) => {
         return new Promise((resolve, reject) => {
             this.findProfessor(identification)
@@ -32,6 +35,7 @@ class Professor {
 
     }
 
+    /* A function that gets all the professors from the database. */
     getProfessors = async () => {
         return new Promise((resolve, reject) => {
             const connection = database.getConnnection();
@@ -52,6 +56,7 @@ class Professor {
         })
     }
 
+    /* Updating the professor. */
     updateProfessor = async (id, fullname, identification) => {
         return new Promise((resolve, reject) => {
             const connection = database.getConnnection();
@@ -69,6 +74,7 @@ class Professor {
         })
     }
 
+    /* Deleting a professor from the database. */
     deleteProfessor = async (id) => {
         return new Promise((resolve, reject) => {
             const connection = database.getConnnection();
@@ -86,6 +92,11 @@ class Professor {
         })
     }
 
+    /**
+     * It checks if a professor exists in the database
+     * @param identification - string
+     * @returns The results of the query.
+     */
     async findProfessor(identification) {
         return new Promise((resolve, reject) => {
             const connection = database.getConnnection();
@@ -107,5 +118,5 @@ class Professor {
         })
     }
 }
-
+/* Exporting the class so that it can be used in other files. */
 module.exports = Professor

@@ -1,5 +1,12 @@
+/* Importing the Subject class from the Subject.js file. */
 const Subject = require('../models/Subject.js');
 
+/**
+ * It creates a new subject and saves it to the database.
+ * @param req - the request object
+ * @param res - the response object
+ * @returns An array of objects.
+ */
 const createSubject = async (req, res) => {
 
     const { name, code } = req.body
@@ -37,6 +44,12 @@ const getSubjects = async (req, res) => {
         })
 }
 
+/**
+ * It updates a subject in the database.
+ * @param req - request
+ * @param res - the response object
+ * @returns A promise
+ */
 const updateSubject = (req, res) => {
 
     const { id } = req.params
@@ -60,6 +73,13 @@ const updateSubject = (req, res) => {
         })
 }
 
+/**
+ * It deletes a subject from the database.
+ * @param req - The request object represents the HTTP request and has properties for the request query
+ * string, parameters, body, HTTP headers, and so on.
+ * @param res - the response object
+ * @returns The result of the query.
+ */
 const deleteSubject = (req, res) => {
 
     const { id } = req.params
@@ -83,4 +103,5 @@ const deleteSubject = (req, res) => {
         })
 }
 
+/* Exporting the functions to be used in the routes. */
 module.exports = { createSubject, getSubjects, updateSubject, deleteSubject };

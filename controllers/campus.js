@@ -1,5 +1,11 @@
+/* It's importing the Campus model. */
 const Campus = require('../models/Campus')
 
+/**
+ * It's a function that gets all the campuses from the database and returns them in a JSON format.
+ * @param req - The request object.
+ * @param res - The response object.
+ */
 const getCampuses = (req, res) => {
 
     const campus = new Campus()
@@ -12,4 +18,5 @@ const getCampuses = (req, res) => {
         })
 }
 
+/* It's exporting the function `getCampuses` so it can be used in other files. */
 module.exports = { getCampuses }

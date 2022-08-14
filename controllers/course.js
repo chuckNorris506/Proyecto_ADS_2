@@ -1,5 +1,12 @@
+/* It's importing the Course model. */
 const Course = require('../models/Course.js')
 
+/**
+ * It creates a course in the database.
+ * @param req - request
+ * @param res - {
+ * @returns a promise.
+ */
 const createCourse = async (req, res) => {
 
     const { quarter, year, schedule, professor, subject, campus, approved, failed, dropped } = req.body
@@ -23,6 +30,12 @@ const createCourse = async (req, res) => {
         })
 }
 
+/**
+ * It gets a course from the database
+ * @param req - {
+ * @param res - the response object
+ * @returns a promise.
+ */
 const getCourse = async (req, res) => {
 
     const { id } = req.params
@@ -58,6 +71,12 @@ const getCourse = async (req, res) => {
         })
 }
 
+/**
+ * It updates a course in the database.
+ * @param req - request
+ * @param res - the response object
+ * @returns a promise.
+ */
 const updateCourse = (req, res) => {
 
     const { id } = req.params
@@ -83,6 +102,13 @@ const updateCourse = (req, res) => {
         })
 }
 
+/**
+ * It deletes a course from the database
+ * @param req - The request object represents the HTTP request and has properties for the request query
+ * string, parameters, body, HTTP headers, and so on.
+ * @param res - The response object.
+ * @returns A function that takes two parameters, req and res.
+ */
 const deleteCourse = (req, res) => {
 
     const { id } = req.params
@@ -106,6 +132,11 @@ const deleteCourse = (req, res) => {
         })
 }
 
+/**
+ * It's a function that gets all the courses from the database and returns them in a JSON format.
+ * @param req - The request object.
+ * @param res - The response object.
+ */
 const getAllCourses = async (req, res) => {
 
     const course = new Course()
@@ -119,6 +150,5 @@ const getAllCourses = async (req, res) => {
 
 }
 
-
-
+/* It's exporting the functions to be used in the routes. */
 module.exports = { createCourse, getCourse, updateCourse, deleteCourse, getAllCourses }

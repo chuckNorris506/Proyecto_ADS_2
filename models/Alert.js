@@ -1,11 +1,14 @@
+/* Importing the database connection file. */
 const database = require('../database/dbConnect')
 
 class Alert {
+    /* Defining the properties of the class. */
     id
     approvedDiff
     failedDiff
     droppedDiff
 
+    /* A function that returns a promise. */
     getAlerts = async () => {
         return new Promise((resolve, reject) => {
             const connection = database.getConnnection()
@@ -28,4 +31,5 @@ class Alert {
 
 }
 
+/* Exporting the class to be used in other files. */
 module.exports = Alert

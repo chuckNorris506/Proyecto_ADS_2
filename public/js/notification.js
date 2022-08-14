@@ -1,5 +1,9 @@
+/**
+ * It gets the alerts from the database and displays them in a table.
+ */
 const getAlerts = async () => {
 
+    /* Setting the options for the fetch request. */
     const options = {
         method: 'GET',
         headers: {
@@ -7,6 +11,7 @@ const getAlerts = async () => {
         }
     }
 
+    /* A fetch request to the database. */
     fetch(`api/v1/alert`, options)
         .then(res => {
             if (res.status === 200) {

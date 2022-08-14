@@ -1,7 +1,15 @@
+/* Importing the User class from the models folder. */
 const User = require('../models/User')
+/* Importing the transporter object from the forgotPassword.js file. */
 const { transporter } = require('../mail/forgotPassword')
+/* Importing the jsonwebtoken library. */
 const jwt = require('jsonwebtoken')
 
+/**
+ * It sends an email to the user with a link to reset their password.
+ * @param req - The request object.
+ * @param res - the response object
+ */
 const sendMail = async (req, res) => {
 
     const user = new User()
@@ -27,6 +35,13 @@ const sendMail = async (req, res) => {
         })
 };
 
+/**
+ * It takes a username and password from a request body, validates them, and then sends them to a login
+ * function in a User class.
+ * @param req - The request object.
+ * @param res - The response object.
+ * @returns A promise.
+ */
 const login = async (req, res) => {
 
     const { username, password } = req.body
@@ -53,6 +68,13 @@ const login = async (req, res) => {
         })
 };
 
+/**
+ * It takes the request body, checks if the values are valid, and then creates a new user.
+ * @param req - The request object. This is an object that represents the HTTP request and has
+ * properties for the request query string, parameters, body, HTTP headers, and so on.
+ * @param res - the response object
+ * @returns The user is being returned.
+ */
 const register = async (req, res) => {
 
     const { fullName, username, password } = req.body
@@ -80,6 +102,12 @@ const register = async (req, res) => {
 
 }
 
+/**
+ * It updates a user's full name and username in the database.
+ * @param req - The request object.
+ * @param res - the response object
+ * @returns A promise
+ */
 const updateUser = async (req, res) => {
 
     const { id } = req.params
@@ -107,6 +135,12 @@ const updateUser = async (req, res) => {
         })
 }
 
+/**
+ * It deletes a user from the database.
+ * @param req - The request object.
+ * @param res - The response object.
+ * @returns The result of the query.
+ */
 const deleteUser = async (req, res) => {
 
     const { id } = req.params
@@ -130,6 +164,11 @@ const deleteUser = async (req, res) => {
         })
 }
 
+/**
+ * It's a function that gets all the users from the database and returns them in a JSON format.
+ * @param req - The request object.
+ * @param res - The response object.
+ */
 const getUsers = async (req, res) => {
 
     const user = new User()
@@ -142,6 +181,15 @@ const getUsers = async (req, res) => {
         })
 }
 
+/**
+ * It takes the id from the url, the password from the body, verifies the id, and then updates the
+ * password.
+ * @param req - request
+ * @param res - the response object
+ * @returns {
+ *     "msg": "Error actualizando contraseña"
+ * }
+ */
 const resetPassword = async (req, res) => {
     const user = new User()
 
@@ -174,4 +222,5 @@ const resetPassword = async (req, res) => {
 }
 
 
+/* It's exporting the functions to be used in the routes. */
 module.exports = { login, register, updateUser, deleteUser, getUsers, sendMail, resetPassword };
