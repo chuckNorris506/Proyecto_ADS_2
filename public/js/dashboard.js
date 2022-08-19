@@ -83,7 +83,7 @@ const getChartData = async () => {
     let approved = []
     let failed = []
     let dropped = []
-    
+
     /* Getting the data from the database and then populating the chart with the data. */
     await getData('approved', subject, campus)
         .then(arr => { if (arr) { approved = arr } })
@@ -97,6 +97,13 @@ const getChartData = async () => {
         .then(arr => { if (arr) { dropped = arr } })
         .catch(() => { })
 
+    if (approved.length == 1 || failed.length == 1 || dropped.length == 1) {
+        document.getElementById(`approved`).innerHTML = ""
+        document.getElementById(`failed`).innerHTML = ""
+        document.getElementById(`dropped`).innerHTML = "No hay registros históricos"
+        return
+    }
+
     /* Calculating the percentages of the data. */
     if (approved.length > 1 || failed.length > 1 || dropped.length > 1) {
 
@@ -104,12 +111,12 @@ const getChartData = async () => {
         let failedMostRecent = failed.shift()
         let droppedMostRecent = dropped.shift()
         let totalMostRecent = approvedMostRecent + failedMostRecent + droppedMostRecent
-        
+
         let pamr = approvedMostRecent * 100 / totalMostRecent
         let pfmr = failedMostRecent * 100 / totalMostRecent
         let pdmr = droppedMostRecent * 100 / totalMostRecent
-        
-        
+
+
         let totalApprovedHistorical = 0
         let totalFailedHistorical = 0
         let totalDroppedHistorical = 0
